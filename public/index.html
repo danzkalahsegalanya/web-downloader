@@ -559,28 +559,6 @@
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        .trending-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .trending-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .trending-item:hover { transform: translateY(-3px); border-color: rgba(37, 244, 238, 0.3); }
-        .trending-thumb { width: 100%; aspect-ratio: 9/16; object-fit: cover; }
-        .trending-info { padding: 10px; }
-        .trending-title { font-size: 11px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .trending-author { font-size: 10px; color: var(--text-dim); }
-
         .toast-container {
             position: fixed;
             top: 20px;
@@ -765,10 +743,6 @@
                 <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 Twitter/X
             </button>
-            <button type="button" class="platform-tab" data-platform="trending">
-                <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-                Trending
-            </button>
         </div>
 
         <div class="batch-toggle">
@@ -811,7 +785,7 @@
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v5.1 | All Features
+            Zerozx System v5.2 | All Features
         </div>
     </div>
 
@@ -956,16 +930,8 @@
                 document.querySelectorAll('.platform-tab').forEach(function(b) { b.classList.remove('active'); });
                 this.classList.add('active');
                 currentPlatform = this.getAttribute('data-platform');
-
-                if (currentPlatform === 'trending') {
-                    document.getElementById('singleInput').style.display = 'none';
-                    document.getElementById('batchInput').style.display = 'none';
-                    loadTrending();
-                } else {
-                    document.getElementById('singleInput').style.display = 'flex';
-                    document.getElementById('batchInput').style.display = 'none';
-                    document.getElementById('result').innerHTML = '';
-                }
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('error').classList.remove('show');
             });
         });
 
@@ -1027,45 +993,6 @@
                 }
             });
             result.innerHTML = html;
-        }
-
-        async function loadTrending() {
-            var result = document.getElementById('result');
-            result.innerHTML = '<div class="loading show"><div class="spinner"></div><p>Loading trending...</p></div>';
-
-            try {
-                var response = await fetch('/api/trending');
-                var data = await response.json();
-
-                if (!data.videos || data.videos.length === 0) {
-                    result.innerHTML = '<div class="error show"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>' + (data.message || 'Trending sementara gak tersedia') + '</span></div>';
-                    return;
-                }
-
-                var html = '<div class="trending-grid">';
-                data.videos.forEach(function(v) {
-                    html += '<div class="trending-item" data-url="' + v.video_url + '">' +
-                        '<img src="' + v.thumbnail + '" class="trending-thumb" onerror="this.style.display=\'none\'">' +
-                        '<div class="trending-info">' +
-                            '<div class="trending-title">' + (v.title || 'No title') + '</div>' +
-                            '<div class="trending-author">@' + v.author + '</div>' +
-                        '</div>' +
-                    '</div>';
-                });
-                html += '</div>';
-                result.innerHTML = html;
-
-                result.querySelectorAll('.trending-item').forEach(function(el) {
-                    el.addEventListener('click', function() {
-                        var url = this.getAttribute('data-url');
-                        document.querySelector('.platform-tab[data-platform="tiktok"]').click();
-                        document.getElementById('urlInput').value = url;
-                        document.getElementById('downloadBtn').click();
-                    });
-                });
-            } catch (err) {
-                result.innerHTML = '<div class="error show"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>' + err.message + '</span></div>';
-            }
         }
 
         document.getElementById('downloadBtn').addEventListener('click', async function() {
