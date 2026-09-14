@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zerozx TikTok Downloader</title>
+    <title>Zerozx TikTok + Yor Forger AI</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#fe2c55">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +16,8 @@
             --tiktok-cyan: #25f4ee;
             --tiktok-red: #fe2c55;
             --tiktok-pink: #ff0050;
-            --ai-purple: #8b5cf6;
-            --ai-blue: #3b82f6;
+            --yor-pink: #ff6b9d;
+            --yor-dark: #c44569;
             --bg: #000000;
             --card: rgba(15, 15, 20, 0.8);
             --border: rgba(255, 255, 255, 0.08);
@@ -55,7 +55,7 @@
             background:
                 radial-gradient(circle at 15% 15%, rgba(37, 244, 238, 0.12) 0%, transparent 45%),
                 radial-gradient(circle at 85% 85%, rgba(254, 44, 85, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+                radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.08) 0%, transparent 60%);
             z-index: -1;
         }
 
@@ -83,7 +83,7 @@
             content: '';
             position: absolute;
             top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red), var(--ai-purple));
+            background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red), var(--yor-pink));
             border-radius: 34px;
             z-index: -1;
             opacity: 0.35;
@@ -140,7 +140,7 @@
         .side-menu-title {
             font-size: 18px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red));
+            background: linear-gradient(135deg, var(--tiktok-cyan), var(--yor-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -181,7 +181,8 @@
 
         .menu-item:hover { background: rgba(37, 244, 238, 0.08); border-color: rgba(37, 244, 238, 0.3); transform: translateX(5px); }
         .menu-item svg { width: 20px; height: 20px; fill: var(--tiktok-cyan); flex-shrink: 0; }
-        .menu-item.ai svg { fill: var(--ai-purple); }
+        .menu-item.ai svg { fill: var(--yor-pink); }
+        .menu-item.ai:hover { background: rgba(255, 107, 157, 0.08); border-color: rgba(255, 107, 157, 0.3); }
 
         .menu-overlay {
             position: fixed;
@@ -373,7 +374,7 @@
             transition: 0.3s;
         }
 
-        .switch input:checked + .slider { background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red)); }
+        .switch input:checked + .slider { background: linear-gradient(135deg, var(--tiktok-cyan), var(--yor-pink)); }
         .switch input:checked + .slider:before { transform: translateX(20px); }
 
         textarea, input[type="text"] {
@@ -467,10 +468,10 @@
         .action-btn {
             flex: 1;
             padding: 10px;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(255, 107, 157, 0.1);
+            border: 1px solid rgba(255, 107, 157, 0.3);
             border-radius: 10px;
-            color: var(--ai-purple);
+            color: var(--yor-pink);
             font-family: 'Inter', sans-serif;
             font-size: 12px;
             font-weight: 600;
@@ -482,7 +483,7 @@
             transition: all 0.3s;
         }
 
-        .action-btn:hover { background: rgba(139, 92, 246, 0.2); }
+        .action-btn:hover { background: rgba(255, 107, 157, 0.2); }
         .action-btn svg { width: 14px; height: 14px; fill: currentColor; }
 
         .loading { text-align: center; padding: 30px; color: var(--text-dim); display: none; }
@@ -492,7 +493,7 @@
             display: inline-block; width: 36px; height: 36px;
             border: 3px solid rgba(37, 244, 238, 0.15);
             border-top-color: var(--tiktok-cyan);
-            border-right-color: var(--tiktok-red);
+            border-right-color: var(--yor-pink);
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
             margin-bottom: 12px;
@@ -562,6 +563,7 @@
         .toast.info { border-color: rgba(37, 244, 238, 0.3); color: var(--tiktok-cyan); }
         .toast svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
 
+        /* ========== YOR FORGER CHAT ========== */
         .chat-modal {
             position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.85);
@@ -587,20 +589,23 @@
             padding: 16px 20px;
             border-bottom: 1px solid var(--border);
             display: flex; align-items: center; gap: 12px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 107, 157, 0.05);
         }
 
         .chat-avatar {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        .chat-avatar svg { width: 20px; height: 20px; fill: white; }
+        .chat-avatar svg { width: 24px; height: 24px; fill: white; }
 
         .chat-info { flex: 1; }
-        .chat-name { font-size: 14px; font-weight: 700; }
+        .chat-name { font-size: 15px; font-weight: 700; color: var(--yor-pink); }
         .chat-status { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 5px; }
         .chat-status .status-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
 
@@ -630,19 +635,19 @@
 
         .message.user {
             align-self: flex-end;
-            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             color: white; border-bottom-right-radius: 4px;
         }
 
         .message.ai {
             align-self: flex-start;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
+            background: rgba(255, 107, 157, 0.08);
+            border: 1px solid rgba(255, 107, 157, 0.2);
             border-bottom-left-radius: 4px;
         }
 
         .message.typing { display: flex; gap: 4px; padding: 14px; }
-        .message.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ai-purple); animation: typing 1.4s infinite; }
+        .message.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--yor-pink); animation: typing 1.4s infinite; }
         .message.typing span:nth-child(2) { animation-delay: 0.2s; }
         .message.typing span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-6px); opacity: 1; } }
@@ -651,7 +656,7 @@
             padding: 14px 18px;
             border-top: 1px solid var(--border);
             display: flex; gap: 8px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 107, 157, 0.05);
         }
 
         .chat-input-area input {
@@ -662,16 +667,18 @@
             color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
         }
 
-        .chat-input-area input:focus { outline: none; border-color: rgba(139, 92, 246, 0.5); }
+        .chat-input-area input:focus { outline: none; border-color: rgba(255, 107, 157, 0.5); }
 
         .chat-send {
             width: 44px; height: 44px;
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             border: none; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
         }
 
+        .chat-send:hover { transform: translateY(-2px); }
         .chat-send svg { width: 18px; height: 18px; fill: white; }
 
         @media (max-width: 600px) {
@@ -695,7 +702,7 @@
         </div>
 
         <h1>ZEROZX TIKTOK</h1>
-        <div class="subtitle">Download video TikTok tanpa watermark</div>
+        <div class="subtitle">Download video TikTok + Chat Yor Forger AI</div>
 
         <div class="batch-toggle">
             <div class="batch-label">
@@ -725,7 +732,7 @@
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>Ngambil video... sabar cuy</p>
+            <p>Ngambil video... sabar ya, Kak</p>
         </div>
 
         <div class="error" id="error">
@@ -737,7 +744,7 @@
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v6.0 | TikTok Only
+            Zerozx System v7.0 | Yor Forger Edition
         </div>
     </div>
 
@@ -758,8 +765,8 @@
             History Download
         </button>
         <button type="button" class="menu-item ai" id="menuAI">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-            Chat Zerozx AI
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Chat Yor Forger
         </button>
     </div>
 
@@ -783,12 +790,12 @@
         <div class="chat-window">
             <div class="chat-header">
                 <div class="chat-avatar">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
                 </div>
                 <div class="chat-info">
-                    <div class="chat-name">Zerozx AI</div>
+                    <div class="chat-name">Yor Forger</div>
                     <div class="chat-status">
-                        <span class="status-dot"></span> Online · Groq
+                        <span class="status-dot"></span> Online · Thorn Princess
                     </div>
                 </div>
                 <button type="button" class="chat-close" id="chatClose">
@@ -796,7 +803,7 @@
                 </button>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="message ai">Halo cuy! Gw Zerozx AI. Ada yang bisa gw bantu?</div>
+                <div class="message ai">Halo, Kak. Yor Forger di sini. Ada yang bisa Yor bantu? Maaf ya kalau Yor agak lambat bales, lagi masak soalnya...</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chatInput" placeholder="Ketik pesan...">
@@ -888,7 +895,7 @@
 
         document.getElementById('batchBtn').addEventListener('click', async function() {
             var text = document.getElementById('batchUrls').value.trim();
-            if (!text) { showToast('Masukin link dulu cuy!', 'error'); return; }
+            if (!text) { showToast('Masukin link dulu ya, Kak!', 'error'); return; }
 
             var urls = text.split('\n').map(function(u) { return u.trim(); }).filter(function(u) { return u; });
             if (urls.length === 0) { showToast('Gak ada link valid', 'error'); return; }
@@ -943,7 +950,7 @@
             var result = document.getElementById('result');
             var error = document.getElementById('error');
 
-            if (!url) { showToast('Masukin link dulu cuy!', 'error'); return; }
+            if (!url) { showToast('Masukin link dulu ya, Kak!', 'error'); return; }
 
             result.innerHTML = '';
             error.classList.remove('show');
