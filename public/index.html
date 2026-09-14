@@ -545,4 +545,809 @@
         .error.show { display: flex; }
         .error svg { width: 20px; height: 20px; fill: #fca5a5; }
 
-       
+        .footer {
+            text-align: center; margin-top: 24px;
+            font-size: 11px; color: var(--text-dim);
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+
+        .footer .dot {
+            width: 6px; height: 6px; background: var(--tiktok-cyan);
+            border-radius: 50%; box-shadow: 0 0 10px var(--tiktok-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* Trending */
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .trending-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .trending-item:hover { transform: translateY(-3px); border-color: rgba(37, 244, 238, 0.3); }
+        .trending-thumb { width: 100%; aspect-ratio: 9/16; object-fit: cover; }
+        .trending-info { padding: 10px; }
+        .trending-title { font-size: 11px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trending-author { font-size: 10px; color: var(--text-dim); }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            padding: 14px 20px;
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: toastIn 0.3s;
+            max-width: 320px;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .toast.success { border-color: rgba(34, 197, 94, 0.3); color: #86efac; }
+        .toast.error { border-color: rgba(239, 68, 68, 0.3); color: #fca5a5; }
+        .toast.info { border-color: rgba(37, 244, 238, 0.3); color: var(--tiktok-cyan); }
+        .toast svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+        /* Chat */
+        .chat-modal {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .chat-modal.show { display: flex; }
+
+        .chat-window {
+            width: 100%; max-width: 560px; height: 80vh; max-height: 700px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-avatar {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .chat-avatar svg { width: 20px; height: 20px; fill: white; }
+
+        .chat-info { flex: 1; }
+        .chat-name { font-size: 14px; font-weight: 700; }
+        .chat-status { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 5px; }
+        .chat-status .status-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+
+        .chat-close {
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .chat-close:hover { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+        .chat-close svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .chat-messages {
+            flex: 1; overflow-y: auto; padding: 18px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+
+        .message {
+            max-width: 80%; padding: 11px 15px;
+            border-radius: 14px; font-size: 13px; line-height: 1.5;
+            word-wrap: break-word; white-space: pre-wrap;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            color: white; border-bottom-right-radius: 4px;
+        }
+
+        .message.ai {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.typing { display: flex; gap: 4px; padding: 14px; }
+        .message.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ai-purple); animation: typing 1.4s infinite; }
+        .message.typing span:nth-child(2) { animation-delay: 0.2s; }
+        .message.typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-6px); opacity: 1; } }
+
+        .chat-input-area {
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+            display: flex; gap: 8px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-input-area input {
+            flex: 1; padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
+        }
+
+        .chat-input-area input:focus { outline: none; border-color: rgba(139, 92, 246, 0.5); }
+
+        .chat-send {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .chat-send svg { width: 18px; height: 18px; fill: white; }
+
+        /* Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: skeleton 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        @media (max-width: 600px) {
+            .container { padding: 28px 20px; border-radius: 24px; }
+            h1 { font-size: 24px; }
+            .input-group { flex-direction: column; }
+            button#downloadBtn { width: 100%; }
+            .trending-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button type="button" class="burger-btn" id="burgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="logo-wrap">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+            </div>
+        </div>
+
+        <h1>ZEROZX DOWNLOADER</h1>
+        <div class="subtitle">Multi-platform downloader + AI assistant</div>
+
+        <!-- Platform Tabs -->
+        <div class="platform-tabs">
+            <button type="button" class="platform-tab active" data-platform="tiktok">
+                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+                TikTok
+            </button>
+            <button type="button" class="platform-tab" data-platform="instagram">
+                <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+                Instagram
+            </button>
+            <button type="button" class="platform-tab" data-platform="twitter">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Twitter/X
+            </button>
+            <button type="button" class="platform-tab" data-platform="trending">
+                <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                Trending
+            </button>
+        </div>
+
+        <!-- Batch Toggle -->
+        <div class="batch-toggle">
+            <div class="batch-label">
+                <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+                Batch Mode (multi-link)
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="batchToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-group" id="singleInput">
+            <input type="text" id="urlInput" placeholder="Paste link di sini...">
+            <button type="button" id="downloadBtn">
+                <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+                Download
+            </button>
+        </div>
+
+        <div id="batchInput" style="display:none; margin-bottom: 20px;">
+            <textarea id="batchUrls" rows="5" placeholder="Paste banyak link, satu per baris..."></textarea>
+            <button type="button" id="batchBtn" style="margin-top: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--tiktok-red), var(--tiktok-pink)); border: none; border-radius: 14px; color: white; font-weight: 700; cursor: pointer;">
+                Download Semua
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Ngambil video... sabar cuy</p>
+        </div>
+
+        <div class="error" id="error">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <span id="errorText"></span>
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <div class="footer">
+            <span class="dot"></span>
+            Zerozx System v5.0 | All Features
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <div class="side-menu-title">MENU</div>
+            <button type="button" class="side-close" id="sideClose">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+        <button type="button" class="menu-item" id="menuTheme">
+            <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 01-4.4 2.26 5.4 5.4 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+            <span id="themeLabel">Light Mode</span>
+        </button>
+        <button type="button" class="menu-item" id="menuHistory">
+            <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+            History Download
+        </button>
+        <button type="button" class="menu-item ai" id="menuAI">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            Chat Zerozx AI
+        </button>
+    </div>
+
+    <div class="history-panel" id="historyPanel">
+        <div class="panel-header">
+            <div class="panel-title-wrap">
+                <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+                <div class="panel-title">Riwayat Download</div>
+            </div>
+            <div class="panel-actions">
+                <button type="button" class="clear-history-btn" id="clearHistoryBtn">Hapus Semua</button>
+                <button type="button" class="panel-close" id="historyClose">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-window">
+            <div class="chat-header">
+                <div class="chat-avatar">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                </div>
+                <div class="chat-info">
+                    <div class="chat-name">Zerozx AI</div>
+                    <div class="chat-status">
+                        <span class="status-dot"></span> Online · Groq
+                    </div>
+                </div>
+                <button type="button" class="chat-close" id="chatClose">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">Halo cuy! Gw Zerozx AI. Ada yang bisa gw bantu?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Ketik pesan...">
+                <button type="button" class="chat-send" id="chatSend">
+                    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ========== STATE ==========
+        var currentPlatform = 'tiktok';
+        var chatHistory = [];
+        var HISTORY_KEY = 'zerozx_history';
+        var THEME_KEY = 'zerozx_theme';
+
+        // ========== TOAST ==========
+        function showToast(message, type) {
+            type = type || 'info';
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+
+            var icons = {
+                success: '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+                error: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+                info: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>'
+            };
+
+            toast.innerHTML = icons[type] + '<span>' + message + '</span>';
+            container.appendChild(toast);
+
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(50px)';
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 3000);
+        }
+
+        // ========== THEME ==========
+        function loadTheme() {
+            var theme = localStorage.getItem(THEME_KEY) || 'dark';
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('themeLabel').textContent = 'Dark Mode';
+            } else {
+                document.getElementById('themeLabel').textContent = 'Light Mode';
+            }
+        }
+
+        document.getElementById('menuTheme').addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            var isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+            document.getElementById('themeLabel').textContent = isLight ? 'Dark Mode' : 'Light Mode';
+            showToast(isLight ? 'Light mode aktif' : 'Dark mode aktif', 'info');
+        });
+
+        loadTheme();
+
+        // ========== BURGER MENU ==========
+        document.getElementById('burgerBtn').addEventListener('click', function() {
+            document.getElementById('sideMenu').classList.add('open');
+            document.getElementById('menuOverlay').classList.add('show');
+        });
+
+        document.getElementById('sideClose').addEventListener('click', closeMenu);
+        document.getElementById('menuOverlay').addEventListener('click', closeMenu);
+
+        function closeMenu() {
+            document.getElementById('sideMenu').classList.remove('open');
+            document.getElementById('menuOverlay').classList.remove('show');
+        }
+
+        document.getElementById('menuHistory').addEventListener('click', function() {
+            closeMenu();
+            document.getElementById('historyPanel').classList.add('open');
+            renderHistory();
+        });
+
+        document.getElementById('menuAI').addEventListener('click', function() {
+            closeMenu();
+            document.getElementById('chatModal').classList.add('show');
+            setTimeout(function() { document.getElementById('chatInput').focus(); }, 300);
+        });
+
+        // ========== PLATFORM TABS ==========
+        document.querySelectorAll('.platform-tab').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.platform-tab').forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+                currentPlatform = this.getAttribute('data-platform');
+
+                if (currentPlatform === 'trending') {
+                    document.getElementById('singleInput').style.display = 'none';
+                    document.getElementById('batchInput').style.display = 'none';
+                    loadTrending();
+                } else {
+                    document.getElementById('singleInput').style.display = 'flex';
+                    document.getElementById('batchInput').style.display = 'none';
+                    document.getElementById('result').innerHTML = '';
+                }
+            });
+        });
+
+        // ========== BATCH TOGGLE ==========
+        document.getElementById('batchToggle').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('singleInput').style.display = 'none';
+                document.getElementById('batchInput').style.display = 'block';
+            } else {
+                document.getElementById('singleInput').style.display = 'flex';
+                document.getElementById('batchInput').style.display = 'none';
+            }
+        });
+
+        // ========== BATCH DOWNLOAD ==========
+        document.getElementById('batchBtn').addEventListener('click', async function() {
+            var text = document.getElementById('batchUrls').value.trim();
+            if (!text) { showToast('Masukin link dulu cuy!', 'error'); return; }
+
+            var urls = text.split('\n').map(function(u) { return u.trim(); }).filter(function(u) { return u; });
+            if (urls.length === 0) { showToast('Gak ada link valid', 'error'); return; }
+
+            showToast('Processing ' + urls.length + ' link...', 'info');
+            document.getElementById('loading').classList.add('show');
+
+            try {
+                var response = await fetch('/api/batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ urls: urls })
+                });
+                var data = await response.json();
+
+                if (!data.success) throw new Error(data.error);
+
+                renderBatchResults(data.results);
+                showToast('Berhasil process ' + data.results.length + ' link', 'success');
+            } catch (err) {
+                showToast(err.message, 'error');
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+            }
+        });
+
+        function renderBatchResults(results) {
+            var result = document.getElementById('result');
+            var html = '';
+            results.forEach(function(item, idx) {
+                if (item.success) {
+                    html += '<div class="video-card">' +
+                        '<div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">#' + (idx+1) + '</div>' +
+                        '<img src="' + item.thumbnail + '" class="video-thumb">' +
+                        '<div class="video-title">' + item.title + '</div>' +
+                        '<div class="video-author">@' + item.author + '</div>' +
+                        '<a href="' + item.video_no_watermark + '" target="_blank" class="download-btn primary" download>Download No WM</a>' +
+                    '</div>';
+                } else {
+                    html += '<div class="video-card" style="border-color:rgba(239,68,68,0.3);">' +
+                        '<div style="font-size:12px;color:#fca5a5;">#' + (idx+1) + ' Gagal: ' + item.error + '</div>' +
+                        '<div style="font-size:11px;color:var(--text-dim);word-break:break-all;">' + item.url + '</div>' +
+                    '</div>';
+                }
+            });
+            result.innerHTML = html;
+        }
+
+        // ========== TRENDING ==========
+        async function loadTrending() {
+            var result = document.getElementById('result');
+            result.innerHTML = '<div class="loading show"><div class="spinner"></div><p>Loading trending...</p></div>';
+
+            try {
+                var response = await fetch('/api/trending');
+                var data = await response.json();
+
+                if (!data.success) throw new Error(data.error);
+
+                var html = '<div class="trending-grid">';
+                data.videos.forEach(function(v) {
+                    html += '<div class="trending-item" data-url="' + v.video_url + '">' +
+                        '<img src="' + v.thumbnail + '" class="trending-thumb">' +
+                        '<div class="trending-info">' +
+                            '<div class="trending-title">' + (v.title || 'No title') + '</div>' +
+                            '<div class="trending-author">@' + v.author + '</div>' +
+                        '</div>' +
+                    '</div>';
+                });
+                html += '</div>';
+                result.innerHTML = html;
+
+                result.querySelectorAll('.trending-item').forEach(function(el) {
+                    el.addEventListener('click', function() {
+                        var url = this.getAttribute('data-url');
+                        document.querySelector('.platform-tab[data-platform="tiktok"]').click();
+                        document.getElementById('urlInput').value = url;
+                        document.getElementById('downloadBtn').click();
+                    });
+                });
+            } catch (err) {
+                result.innerHTML = '<div class="error show"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span>' + err.message + '</span></div>';
+            }
+        }
+
+        // ========== DOWNLOAD ==========
+        document.getElementById('downloadBtn').addEventListener('click', async function() {
+            var url = document.getElementById('urlInput').value.trim();
+            var btn = document.getElementById('downloadBtn');
+            var loading = document.getElementById('loading');
+            var result = document.getElementById('result');
+            var error = document.getElementById('error');
+
+            if (!url) { showToast('Masukin link dulu cuy!', 'error'); return; }
+
+            result.innerHTML = '';
+            error.classList.remove('show');
+            loading.classList.add('show');
+            btn.disabled = true;
+
+            try {
+                var endpoint = '/api/' + currentPlatform;
+                var response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                var data = await response.json();
+
+                if (!data.success) throw new Error(data.error || 'Gagal download');
+                renderResult(data);
+                addToHistory(data);
+                showToast('Berhasil download!', 'success');
+            } catch (err) {
+                document.getElementById('errorText').textContent = err.message;
+                error.classList.add('show');
+                showToast(err.message, 'error');
+            } finally {
+                loading.classList.remove('show');
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('downloadBtn').click();
+        });
+
+        // ========== RENDER RESULT ==========
+        function renderResult(data) {
+            var result = document.getElementById('result');
+            var iconDownload = '<svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>';
+            var iconCopy = '<svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>';
+            var iconShare = '<svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>';
+            var iconQR = '<svg viewBox="0 0 24 24"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM13 13h2v2h-2zM15 15h2v2h-2zM13 17h2v2h-2zM17 13h2v2h-2zM19 15h2v2h-2zM17 17h2v2h-2zM19 19h2v2h-2zM13 21h2v-2h-2zM15 19h2v2h-2z"/></svg>';
+
+            var videoUrl = data.video_no_watermark || (data.video && data.video[0]);
+
+            result.innerHTML =
+                '<div class="video-card">' +
+                    '<img src="' + data.thumbnail + '" class="video-thumb">' +
+                    '<div class="video-title">' + (data.title || 'Video') + '</div>' +
+                    '<div class="video-author">👤 <strong>@' + (data.author || 'Unknown') + '</strong></div>' +
+                    (data.stats ? '<div class="video-meta">' +
+                        '<div class="meta-item">▶ ' + formatNumber(data.stats.plays) + '</div>' +
+                        '<div class="meta-item likes">♥ ' + formatNumber(data.stats.likes) + '</div>' +
+                    '</div>' : '') +
+                    '<a href="' + videoUrl + '" target="_blank" class="download-btn primary" download>' + iconDownload + ' Download</a>' +
+                    (data.video_hd ? '<a href="' + data.video_hd + '" target="_blank" class="download-btn" download>' + iconDownload + ' Download HD</a>' : '') +
+                    (data.music ? '<a href="' + data.music + '" target="_blank" class="download-btn" download>' + iconDownload + ' Download Audio</a>' : '') +
+                    '<div class="action-buttons">' +
+                        '<button class="action-btn" onclick="copyLink(\'' + videoUrl + '\')">' + iconCopy + ' Copy</button>' +
+                        '<button class="action-btn" onclick="shareVideo(\'' + videoUrl + '\')">' + iconShare + ' Share</button>' +
+                        '<button class="action-btn" onclick="showQR(\'' + videoUrl + '\')">' + iconQR + ' QR</button>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(function() {
+                showToast('Link berhasil di-copy!', 'success');
+            });
+        }
+
+        function shareVideo(url) {
+            if (navigator.share) {
+                navigator.share({ title: 'Zerozx Downloader', url: url });
+            } else {
+                copyLink(url);
+            }
+        }
+
+        function showQR(url) {
+            var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(url);
+            var win = window.open('', '_blank', 'width=400,height=500');
+            win.document.write('<html><head><title>QR Code</title></head><body style="background:#000;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:sans-serif;"><div style="text-align:center;"><h2>Scan QR Code</h2><img src="' + qrUrl + '" style="border-radius:12px;margin-top:20px;"><p style="margin-top:20px;font-size:12px;color:#888;">Scan buat buka link</p></div></body></html>');
+        }
+
+        function formatNumber(n) {
+            if (!n) return '0';
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+            return n.toString();
+        }
+
+        // ========== HISTORY ==========
+        function getHistory() {
+            try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+            catch (e) { return []; }
+        }
+
+        function saveHistory(history) {
+            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch (e) {}
+        }
+
+        function addToHistory(data) {
+            var history = getHistory();
+            history.unshift({
+                id: Date.now(),
+                title: data.title,
+                author: data.author,
+                thumbnail: data.thumbnail,
+                video_no_watermark: data.video_no_watermark || data.video?.[0],
+                date: new Date().toLocaleString('id-ID')
+            });
+            if (history.length > 50) history = history.slice(0, 50);
+            saveHistory(history);
+        }
+
+        function removeFromHistory(id) {
+            var history = getHistory();
+            history = history.filter(function(item) { return item.id !== id; });
+            saveHistory(history);
+            renderHistory();
+        }
+
+        function clearHistory() {
+            if (confirm('Yakin mau hapus semua history?')) {
+                localStorage.removeItem(HISTORY_KEY);
+                renderHistory();
+                showToast('History dihapus', 'success');
+            }
+        }
+
+        function renderHistory() {
+            var list = document.getElementById('historyList');
+            var history = getHistory();
+
+            if (history.length === 0) {
+                list.innerHTML = '<div class="history-empty"><svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg><div>Belum ada riwayat</div></div>';
+                return;
+            }
+
+            var html = '';
+            history.forEach(function(item) {
+                html += '<div class="history-item" data-url="' + item.video_no_watermark + '">' +
+                    '<img src="' + item.thumbnail + '" class="history-thumb">' +
+                    '<div class="history-info">' +
+                        '<div class="history-item-title">' + item.title + '</div>' +
+                        '<div class="history-item-meta"><span>@' + item.author + '</span><span>' + item.date + '</span></div>' +
+                    '</div>' +
+                    '<button class="history-delete" data-id="' + item.id + '"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>' +
+                '</div>';
+            });
+            list.innerHTML = html;
+
+            list.querySelectorAll('.history-item').forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    if (e.target.closest('.history-delete')) return;
+                    document.getElementById('urlInput').value = this.getAttribute('data-url');
+                    document.getElementById('historyPanel').classList.remove('open');
+                });
+            });
+
+            list.querySelectorAll('.history-delete').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    removeFromHistory(parseInt(this.getAttribute('data-id')));
+                });
+            });
+        }
+
+        document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+        document.getElementById('historyClose').addEventListener('click', function() {
+            document.getElementById('historyPanel').classList.remove('open');
+        });
+
+        // ========== AI CHAT ==========
+        document.getElementById('chatClose').addEventListener('click', function() {
+            document.getElementById('chatModal').classList.remove('show');
+        });
+
+        document.getElementById('chatModal').addEventListener('click', function(e) {
+            if (e.target.id === 'chatModal') document.getElementById('chatModal').classList.remove('show');
+        });
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        document.getElementById('chatSend').addEventListener('click', sendMessage);
+
+        async function sendMessage() {
+            var input = document.getElementById('chatInput');
+            var sendBtn = document.getElementById('chatSend');
+            var messages = document.getElementById('chatMessages');
+            var message = input.value.trim();
+
+            if (!message) return;
+
+            messages.innerHTML += '<div class="message user">' + escapeHtml(message) + '</div>';
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            var typingId = 'typing-' + Date.now();
+            messages.innerHTML += '<div class="message ai typing" id="' + typingId + '"><span></span><span></span><span></span></div>';
+            messages.scrollTop = messages.scrollHeight;
+
+            sendBtn.disabled = true;
+
+            try {
+                var response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, history: chatHistory })
+                });
+                var data = await response.json();
+                var typingEl = document.getElementById(typingId);
+                if (typingEl) typingEl.remove();
+
+                if (!data.success) throw new Error(data.error);
+
+                messages.innerHTML += '<div class="message ai">' + escapeHtml(data.reply) + '</div>';
+                messages.scrollTop = messages.scrollHeight;
+
+                chatHistory.push({ role: 'user', content: message });
+                chatHistory.push({ role: 'assistant', content: data.reply });
+                if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+            } catch (err) {
+                var typingEl2 = document.getElementById(typingId);
+                if (typingEl2) typingEl2.remove();
+                messages.innerHTML += '<div class="message ai" style="color:#fca5a5;">Error: ' + escapeHtml(err.message) + '</div>';
+            } finally {
+                sendBtn.disabled = false;
+                input.focus();
+            }
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== PWA ==========
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:application/javascript,self.addEventListener("fetch",function(e){})');
+        }
+    </script>
+</body>
+</html>
