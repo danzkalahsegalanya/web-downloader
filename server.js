@@ -58,69 +58,6 @@ app.post('/api/tiktok', async (req, res) => {
     }
 });
 
-// ========== INSTAGRAM ==========
-app.post('/api/instagram', async (req, res) => {
-    try {
-        const { url } = req.body;
-        if (!url) return res.status(400).json({ error: 'URL Instagram wajib diisi!' });
-        if (!url.includes('instagram.com')) {
-            return res.status(400).json({ error: 'URL bukan dari Instagram!' });
-        }
-
-        const response = await axios.get('https://api.instagram.com/oembed/', {
-            params: { url }, timeout: 15000
-        });
-
-        res.json({
-            success: true,
-            platform: 'instagram',
-            title: response.data.title || 'Instagram Post',
-            author: response.data.author_name || 'Unknown',
-            thumbnail: response.data.thumbnail_url || '',
-            video_no_watermark: response.data.thumbnail_url || ''
-        });
-    } catch (error) {
-        console.error('Instagram error:', error.message);
-        res.status(500).json({ error: 'Gagal download Instagram. Coba lagi!' });
-    }
-});
-
-// ========== TWITTER/X ==========
-app.post('/api/twitter', async (req, res) => {
-    try {
-        const { url } = req.body;
-        if (!url) return res.status(400).json({ error: 'URL Twitter/X wajib diisi!' });
-        if (!url.includes('twitter.com') && !url.includes('x.com')) {
-            return res.status(400).json({ error: 'URL bukan dari Twitter/X!' });
-        }
-
-        const tweetId = url.split('/status/')[1]?.split('?')[0];
-        if (!tweetId) return res.status(400).json({ error: 'Tweet ID gak valid' });
-
-        const response = await axios.get('https://api.vxtwitter.com/Twitter/status/' + tweetId, {
-            timeout: 15000
-        });
-
-        res.json({
-            success: true,
-            platform: 'twitter',
-            title: response.data.text || 'Twitter Video',
-            author: response.data.user_screen_name || 'Unknown',
-            thumbnail: response.data.mediaURLs?.[0] || '',
-            video_no_watermark: response.data.mediaURLs?.filter(u => u.includes('.mp4'))?.[0] || '',
-            stats: {
-                plays: 0,
-                likes: response.data.likes || 0,
-                comments: response.data.replies || 0,
-                shares: response.data.retweets || 0
-            }
-        });
-    } catch (error) {
-        console.error('Twitter error:', error.message);
-        res.status(500).json({ error: 'Gagal download Twitter/X. Coba lagi!' });
-    }
-});
-
 // ========== BATCH DOWNLOAD ==========
 app.post('/api/batch', async (req, res) => {
     try {
@@ -200,5 +137,5 @@ app.post('/api/chat', async (req, res) => {
 module.exports = app;
 
 if (require.main === module) {
-    app.listen(PORT, () => console.log(`\nZEROZX ALL-IN-ONE\nhttp://localhost:${PORT}\n`));
+    app.listen(PORT, () => console.log(`\nZEROZX TIKTOK\nhttp://localhost:${PORT}\n`));
 }
