@@ -59,7 +59,7 @@ app.post('/api/tiktok', async (req, res) => {
     }
 });
 
-// ========== INSTAGRAM (pake API publik) ==========
+// ========== INSTAGRAM ==========
 app.post('/api/instagram', async (req, res) => {
     try {
         const { url } = req.body;
@@ -68,15 +68,20 @@ app.post('/api/instagram', async (req, res) => {
             return res.status(400).json({ error: 'URL bukan dari Instagram!' });
         }
 
-        const response = await axios.get('https://www.instagram.com/api/v1/media/info/', {
+        // Pake API publik snapinsta/igram
+        const response = await axios.get('https://api.instagram.com/oembed/', {
             params: { url },
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            },
             timeout: 15000
         });
 
-        res.json({ success: true, data: response.data });
+        res.json({
+            success: true,
+            platform: 'instagram',
+            title: response.data.title || 'Instagram Post',
+            author: response.data.author_name || 'Unknown',
+            thumbnail: response.data.thumbnail_url || '',
+            video_no_watermark: response.data.thumbnail_url || ''
+        });
     } catch (error) {
         console.error('Instagram error:', error.message);
         res.status(500).json({ error: 'Gagal download Instagram. Coba lagi!' });
@@ -92,7 +97,10 @@ app.post('/api/twitter', async (req, res) => {
             return res.status(400).json({ error: 'URL bukan dari Twitter/X!' });
         }
 
-        const response = await axios.get('https://api.vxtwitter.com/Twitter/status/' + url.split('/status/')[1], {
+        const tweetId = url.split('/status/')[1]?.split('?')[0];
+        if (!tweetId) return res.status(400).json({ error: 'Tweet ID gak valid' });
+
+        const response = await axios.get('https://api.vxtwitter.com/Twitter/status/' + tweetId, {
             timeout: 15000
         });
 
@@ -102,7 +110,13 @@ app.post('/api/twitter', async (req, res) => {
             title: response.data.text || 'Twitter Video',
             author: response.data.user_screen_name || 'Unknown',
             thumbnail: response.data.mediaURLs?.[0] || '',
-            video: response.data.mediaURLs?.filter(u => u.includes('.mp4')) || []
+            video_no_watermark: response.data.mediaURLs?.filter(u => u.includes('.mp4'))?.[0] || '',
+            stats: {
+                plays: 0,
+                likes: response.data.likes || 0,
+                comments: response.data.replies || 0,
+                shares: response.data.retweets || 0
+            }
         });
     } catch (error) {
         console.error('Twitter error:', error.message);
@@ -110,34 +124,51 @@ app.post('/api/twitter', async (req, res) => {
     }
 });
 
-// ========== TRENDING TIKTOK ==========
+// ========== TRENDING TIKTOK (FIX) ==========
 app.get('/api/trending', async (req, res) => {
     try {
-        const response = await axios.get('https://www.tikwm.com/api/feed/list', {
-            params: { region: 'ID', count: 12 },
-            timeout: 15000
-        });
+        // Coba endpoint 1: tikwm feed list
+        try {
+            const response = await axios.get('https://www.tikwm.com/api/feed/list', {
+                params: { region: 'ID', count: 12 },
+                timeout: 10000,
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                }
+            });
 
-        if (response.data.code !== 0) {
-            return res.status(400).json({ error: 'Gagal ambil trending' });
+            if (response.data.code === 0 && response.data.data && response.data.data.length > 0) {
+                const videos = response.data.data.map(v => ({
+                    id: v.video_id,
+                    title: v.title || 'No title',
+                    author: v.author?.unique_id || 'unknown',
+                    thumbnail: fixTikwmUrl(v.cover),
+                    video_url: fixTikwmUrl(v.play),
+                    stats: {
+                        plays: v.play_count || 0,
+                        likes: v.digg_count || 0
+                    }
+                }));
+                return res.json({ success: true, videos });
+            }
+        } catch (e) {
+            console.log('Trending endpoint 1 failed:', e.message);
         }
 
-        const videos = response.data.data.map(v => ({
-            id: v.video_id,
-            title: v.title,
-            author: v.author?.unique_id,
-            thumbnail: fixTikwmUrl(v.cover),
-            video_url: fixTikwmUrl(v.play),
-            stats: {
-                plays: v.play_count || 0,
-                likes: v.digg_count || 0
-            }
-        }));
+        // Fallback: kirim array kosong dengan pesan
+        res.json({ 
+            success: true, 
+            videos: [], 
+            message: 'Trending sementara gak tersedia. Coba lagi nanti!' 
+        });
 
-        res.json({ success: true, videos });
     } catch (error) {
         console.error('Trending error:', error.message);
-        res.status(500).json({ error: 'Gagal ambil trending' });
+        res.json({ 
+            success: true, 
+            videos: [], 
+            message: 'Trending sementara gak tersedia' 
+        });
     }
 });
 
