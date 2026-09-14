@@ -7,26 +7,20 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ========== TIKTOK DOWNLOADER (PAKE API TIKWM) ==========
+// ========== TIKTOK ==========
 app.post('/api/tiktok', async (req, res) => {
     try {
         const { url } = req.body;
 
-        if (!url) {
-            return res.status(400).json({ error: 'URL TikTok wajib diisi!' });
-        }
-
-        // Validasi URL TikTok
+        if (!url) return res.status(400).json({ error: 'URL TikTok wajib diisi!' });
         if (!url.includes('tiktok.com') && !url.includes('vt.tiktok.com')) {
             return res.status(400).json({ error: 'URL bukan dari TikTok!' });
         }
 
-        // Panggil API tikwm
         const response = await axios.get('https://www.tikwm.com/api/', {
             params: { url: url },
             timeout: 10000
@@ -38,16 +32,22 @@ app.post('/api/tiktok', async (req, res) => {
 
         const data = response.data.data;
 
+        // FIX: Handle URL yang udah lengkap
+        const fixUrl = (u) => {
+            if (!u) return null;
+            return u.startsWith('http') ? u : `https://www.tikwm.com${u}`;
+        };
+
         res.json({
             success: true,
             platform: 'tiktok',
             title: data.title || 'TikTok Video',
             author: data.author?.unique_id || 'Unknown',
-            thumbnail: data.cover,
+            thumbnail: fixUrl(data.cover),
             duration: data.duration,
-            video_no_watermark: `https://www.tikwm.com${data.play}`,
-            video_hd: data.hd ? `https://www.tikwm.com${data.hd}` : null,
-            music: data.music ? `https://www.tikwm.com${data.music}` : null
+            video_no_watermark: fixUrl(data.play),
+            video_hd: fixUrl(data.hd),
+            music: fixUrl(data.music)
         });
 
     } catch (error) {
@@ -56,22 +56,16 @@ app.post('/api/tiktok', async (req, res) => {
     }
 });
 
-// ========== YOUTUBE DOWNLOADER (PAKE YTDL-CORE) ==========
+// ========== YOUTUBE ==========
 app.post('/api/youtube', async (req, res) => {
     try {
         const { url } = req.body;
 
-        if (!url) {
-            return res.status(400).json({ error: 'URL YouTube wajib diisi!' });
-        }
-
-        if (!ytdl.validateURL(url)) {
-            return res.status(400).json({ error: 'URL YouTube tidak valid!' });
-        }
+        if (!url) return res.status(400).json({ error: 'URL YouTube wajib diisi!' });
+        if (!ytdl.validateURL(url)) return res.status(400).json({ error: 'URL YouTube tidak valid!' });
 
         const info = await ytdl.getInfo(url);
 
-        // Filter format video (mp4) dan audio (m4a/webm)
         const videoFormats = info.formats
             .filter(f => f.hasVideo && f.hasAudio)
             .map(f => ({
@@ -109,14 +103,11 @@ app.post('/api/youtube', async (req, res) => {
     }
 });
 
-// ========== DOWNLOAD PROXY (BUAT BYPASS CORS) ==========
+// ========== PROXY (buat fallback) ==========
 app.get('/api/proxy', async (req, res) => {
     try {
         const { url, filename } = req.query;
-
-        if (!url) {
-            return res.status(400).json({ error: 'URL wajib diisi!' });
-        }
+        if (!url) return res.status(400).json({ error: 'URL wajib diisi!' });
 
         const response = await axios({
             method: 'GET',
@@ -127,7 +118,6 @@ app.get('/api/proxy', async (req, res) => {
 
         res.setHeader('Content-Disposition', `attachment; filename="${filename || 'video.mp4'}"`);
         res.setHeader('Content-Type', response.headers['content-type'] || 'application/octet-stream');
-
         response.data.pipe(res);
 
     } catch (error) {
@@ -136,14 +126,13 @@ app.get('/api/proxy', async (req, res) => {
     }
 });
 
-// ========== EXPORT APP BUAT VERCEL ==========
+// ========== VERCEL EXPORT ==========
 module.exports = app;
 
-// ========== JALANIN SERVER KALO DI LOCAL ==========
+// ========== LOCAL DEV ==========
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`\n🔥 ZEROZX VIDEO DOWNLOADER\n`);
-        console.log(`   Server jalan di: http://localhost:${PORT}`);
-        console.log(`   Tekan Ctrl+C buat stop\n`);
+        console.log(`   Server jalan di: http://localhost:${PORT}\n`);
     });
 }
