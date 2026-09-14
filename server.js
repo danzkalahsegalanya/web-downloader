@@ -136,9 +136,14 @@ app.get('/api/proxy', async (req, res) => {
     }
 });
 
-// ========== START SERVER ==========
-app.listen(PORT, () => {
-    console.log(`\n🔥 ZEROZX VIDEO DOWNLOADER\n`);
-    console.log(`   Server jalan di: http://localhost:${PORT}`);
-    console.log(`   Tekan Ctrl+C buat stop\n`);
-});
+// ========== EXPORT APP BUAT VERCEL ==========
+module.exports = app;
+
+// ========== JALANIN SERVER KALO DI LOCAL ==========
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`\n🔥 ZEROZX VIDEO DOWNLOADER\n`);
+        console.log(`   Server jalan di: http://localhost:${PORT}`);
+        console.log(`   Tekan Ctrl+C buat stop\n`);
+    });
+}
