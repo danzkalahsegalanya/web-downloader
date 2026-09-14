@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zerozx TikTok + Yor Forger AI</title>
+    <title>Yor Forger Downloader</title>
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#fe2c55">
+    <meta name="theme-color" content="#c44569">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,24 +13,24 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --tiktok-cyan: #25f4ee;
-            --tiktok-red: #fe2c55;
-            --tiktok-pink: #ff0050;
             --yor-pink: #ff6b9d;
             --yor-dark: #c44569;
-            --bg: #000000;
-            --card: rgba(15, 15, 20, 0.8);
-            --border: rgba(255, 255, 255, 0.08);
+            --yor-red: #a83050;
+            --yor-light: #ffb8d9;
+            --yor-black: #1a0a12;
+            --bg: #0a0508;
+            --card: rgba(30, 10, 20, 0.85);
+            --border: rgba(255, 107, 157, 0.2);
             --text: #ffffff;
-            --text-dim: #8a8a95;
+            --text-dim: #b8a0a8;
         }
 
         body.light-mode {
-            --bg: #f5f5f7;
+            --bg: #fff5f8;
             --card: rgba(255, 255, 255, 0.9);
-            --border: rgba(0, 0, 0, 0.08);
-            --text: #1a1a1a;
-            --text-dim: #6b6b70;
+            --border: rgba(196, 69, 105, 0.2);
+            --text: #2a0a15;
+            --text-dim: #8a6b75;
         }
 
         body {
@@ -53,10 +53,27 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             background:
-                radial-gradient(circle at 15% 15%, rgba(37, 244, 238, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(254, 44, 85, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.08) 0%, transparent 60%);
+                radial-gradient(circle at 15% 15%, rgba(255, 107, 157, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(196, 69, 105, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(168, 48, 80, 0.08) 0%, transparent 60%);
             z-index: -1;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Rose pattern background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23ff6b9d' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3Ccircle cx='30' cy='30' r='4' fill='%23c44569' fill-opacity='0.06'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -68,7 +85,7 @@
             padding: 40px 48px;
             width: 100%;
             max-width: 640px;
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px -12px rgba(196, 69, 105, 0.3);
             position: relative;
             z-index: 1;
             animation: containerIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,11 +100,17 @@
             content: '';
             position: absolute;
             top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red), var(--yor-pink));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-red), var(--yor-dark));
             border-radius: 34px;
             z-index: -1;
-            opacity: 0.35;
+            opacity: 0.4;
             filter: blur(24px);
+            animation: borderGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
         }
 
         .burger-btn {
@@ -97,7 +120,7 @@
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 107, 157, 0.1);
             border: 1px solid var(--border);
             cursor: pointer;
             display: flex;
@@ -109,8 +132,8 @@
             z-index: 10;
         }
 
-        .burger-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(37, 244, 238, 0.4); }
-        .burger-btn span { display: block; width: 20px; height: 2px; background: var(--text); border-radius: 2px; }
+        .burger-btn:hover { background: rgba(255, 107, 157, 0.2); border-color: var(--yor-pink); }
+        .burger-btn span { display: block; width: 20px; height: 2px; background: var(--yor-pink); border-radius: 2px; }
 
         .side-menu {
             position: fixed;
@@ -140,7 +163,7 @@
         .side-menu-title {
             font-size: 18px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--tiktok-cyan), var(--yor-pink));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -148,9 +171,9 @@
         .side-close {
             width: 36px; height: 36px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 107, 157, 0.1);
             border: 1px solid var(--border);
-            color: var(--text-dim);
+            color: var(--yor-pink);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -166,7 +189,7 @@
             gap: 14px;
             padding: 16px 18px;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 107, 157, 0.05);
             border: 1px solid var(--border);
             color: var(--text);
             cursor: pointer;
@@ -179,15 +202,13 @@
             width: 100%;
         }
 
-        .menu-item:hover { background: rgba(37, 244, 238, 0.08); border-color: rgba(37, 244, 238, 0.3); transform: translateX(5px); }
-        .menu-item svg { width: 20px; height: 20px; fill: var(--tiktok-cyan); flex-shrink: 0; }
-        .menu-item.ai svg { fill: var(--yor-pink); }
-        .menu-item.ai:hover { background: rgba(255, 107, 157, 0.08); border-color: rgba(255, 107, 157, 0.3); }
+        .menu-item:hover { background: rgba(255, 107, 157, 0.15); border-color: var(--yor-pink); transform: translateX(5px); }
+        .menu-item svg { width: 20px; height: 20px; fill: var(--yor-pink); flex-shrink: 0; }
 
         .menu-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(10, 5, 8, 0.7);
             z-index: 9998;
             opacity: 0;
             pointer-events: none;
@@ -224,8 +245,8 @@
         }
 
         .panel-title-wrap { display: flex; align-items: center; gap: 10px; }
-        .panel-title-wrap svg { width: 22px; height: 22px; fill: var(--tiktok-cyan); }
-        .panel-title { font-size: 18px; font-weight: 800; }
+        .panel-title-wrap svg { width: 22px; height: 22px; fill: var(--yor-pink); }
+        .panel-title { font-size: 18px; font-weight: 800; color: var(--yor-pink); }
 
         .panel-actions { display: flex; gap: 8px; align-items: center; }
 
@@ -244,9 +265,9 @@
         .panel-close {
             width: 36px; height: 36px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 107, 157, 0.1);
             border: 1px solid var(--border);
-            color: var(--text-dim);
+            color: var(--yor-pink);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -262,7 +283,7 @@
             display: flex;
             gap: 12px;
             padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 107, 157, 0.05);
             border: 1px solid var(--border);
             border-radius: 14px;
             cursor: pointer;
@@ -270,7 +291,7 @@
             align-items: center;
         }
 
-        .history-item:hover { border-color: rgba(37, 244, 238, 0.3); }
+        .history-item:hover { border-color: var(--yor-pink); background: rgba(255, 107, 157, 0.1); }
 
         .history-thumb { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
         .history-info { flex: 1; overflow: hidden; }
@@ -293,39 +314,42 @@
         .history-delete svg { width: 14px; height: 14px; fill: currentColor; }
 
         .history-empty { text-align: center; padding: 60px 20px; color: var(--text-dim); font-size: 13px; }
-        .history-empty svg { width: 48px; height: 48px; fill: var(--text-dim); opacity: 0.3; margin-bottom: 12px; }
+        .history-empty svg { width: 48px; height: 48px; fill: var(--yor-pink); opacity: 0.3; margin-bottom: 12px; }
 
         .logo-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
 
         .logo-icon {
-            width: 64px; height: 64px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #000, #1a1a2e);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #000, #2a0a15);
+            border: 2px solid var(--yor-pink);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 25px rgba(37, 244, 238, 0.3), 0 0 50px rgba(254, 44, 85, 0.2);
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.5), 0 0 60px rgba(196, 69, 105, 0.3);
             animation: logoFloat 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
 
         @keyframes logoFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            0%, 100% { transform: translateY(0); box-shadow: 0 0 30px rgba(255, 107, 157, 0.5); }
+            50% { transform: translateY(-6px); box-shadow: 0 0 40px rgba(255, 107, 157, 0.8); }
         }
 
-        .logo-icon svg { width: 36px; height: 36px; fill: white; }
+        .logo-icon svg { width: 40px; height: 40px; fill: var(--yor-pink); }
 
         h1 {
             font-size: 32px;
             font-weight: 900;
             text-align: center;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--tiktok-cyan), var(--text), var(--tiktok-red));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-red), var(--yor-pink));
             background-size: 250% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 4s linear infinite;
+            letter-spacing: -1px;
         }
 
         @keyframes shine { to { background-position: 250% center; } }
@@ -338,13 +362,13 @@
             justify-content: space-between;
             margin-bottom: 16px;
             padding: 10px 14px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255, 107, 157, 0.05);
             border: 1px solid var(--border);
             border-radius: 12px;
         }
 
         .batch-label { font-size: 13px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
-        .batch-label svg { width: 16px; height: 16px; fill: var(--text-dim); }
+        .batch-label svg { width: 16px; height: 16px; fill: var(--yor-pink); }
 
         .switch {
             position: relative;
@@ -359,7 +383,7 @@
             position: absolute;
             cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 107, 157, 0.2);
             border-radius: 24px;
             transition: 0.3s;
         }
@@ -374,13 +398,13 @@
             transition: 0.3s;
         }
 
-        .switch input:checked + .slider { background: linear-gradient(135deg, var(--tiktok-cyan), var(--yor-pink)); }
+        .switch input:checked + .slider { background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark)); }
         .switch input:checked + .slider:before { transform: translateX(20px); }
 
         textarea, input[type="text"] {
             width: 100%;
             padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 107, 157, 0.05);
             border: 1px solid var(--border);
             border-radius: 14px;
             color: var(--text);
@@ -390,17 +414,20 @@
             resize: vertical;
         }
 
+        textarea::placeholder, input::placeholder { color: var(--text-dim); }
+
         textarea:focus, input:focus {
             outline: none;
-            border-color: rgba(37, 244, 238, 0.5);
-            box-shadow: 0 0 0 4px rgba(37, 244, 238, 0.1);
+            border-color: var(--yor-pink);
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15);
+            background: rgba(255, 107, 157, 0.08);
         }
 
         .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
 
         button#downloadBtn {
             padding: 16px 30px;
-            background: linear-gradient(135deg, var(--tiktok-red), var(--tiktok-pink));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             border: none;
             border-radius: 14px;
             color: white;
@@ -414,46 +441,55 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 20px rgba(254, 44, 85, 0.4);
+            box-shadow: 0 4px 20px rgba(255, 107, 157, 0.4);
         }
 
-        button#downloadBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(254, 44, 85, 0.6); }
+        button#downloadBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 107, 157, 0.6); }
         button#downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
         button#downloadBtn svg { width: 18px; height: 18px; fill: white; }
 
         .result { margin-top: 20px; }
-        .video-card { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); border-radius: 20px; padding: 22px; margin-bottom: 12px; }
+        .video-card {
+            background: rgba(255, 107, 157, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .video-card:hover { border-color: var(--yor-pink); box-shadow: 0 10px 30px rgba(255, 107, 157, 0.15); }
+
         .video-thumb { width: 100%; border-radius: 14px; margin-bottom: 18px; }
         .video-title { font-size: 15px; margin-bottom: 10px; font-weight: 700; line-height: 1.5; }
         .video-author { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 13px; color: var(--text-dim); }
-        .video-author strong { color: var(--text); }
+        .video-author strong { color: var(--yor-pink); }
 
         .video-meta {
             display: flex; gap: 14px; flex-wrap: wrap;
             margin-bottom: 18px; padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 107, 157, 0.05);
             border-radius: 10px; border: 1px solid var(--border);
         }
 
         .meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-dim); }
-        .meta-item svg { width: 13px; height: 13px; fill: var(--tiktok-cyan); }
-        .meta-item.likes svg { fill: var(--tiktok-red); }
+        .meta-item svg { width: 13px; height: 13px; fill: var(--yor-pink); }
 
         .download-btn {
             display: flex; align-items: center; justify-content: center;
             gap: 10px; width: 100%; padding: 14px 18px;
-            background: rgba(37, 244, 238, 0.08);
-            border: 1px solid rgba(37, 244, 238, 0.25);
-            border-radius: 12px; color: var(--tiktok-cyan);
+            background: rgba(255, 107, 157, 0.1);
+            border: 1px solid rgba(255, 107, 157, 0.3);
+            border-radius: 12px; color: var(--yor-pink);
             text-align: center; text-decoration: none;
             margin-bottom: 8px; font-size: 13px; font-weight: 700;
             transition: all 0.3s;
         }
 
         .download-btn.primary {
-            background: linear-gradient(135deg, var(--tiktok-red), var(--tiktok-pink));
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             border-color: transparent; color: #fff;
-            box-shadow: 0 4px 15px rgba(254, 44, 85, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
         }
 
         .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
@@ -491,9 +527,9 @@
 
         .spinner {
             display: inline-block; width: 36px; height: 36px;
-            border: 3px solid rgba(37, 244, 238, 0.15);
-            border-top-color: var(--tiktok-cyan);
-            border-right-color: var(--yor-pink);
+            border: 3px solid rgba(255, 107, 157, 0.15);
+            border-top-color: var(--yor-pink);
+            border-right-color: var(--yor-dark);
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
             margin-bottom: 12px;
@@ -520,8 +556,8 @@
         }
 
         .footer .dot {
-            width: 6px; height: 6px; background: var(--tiktok-cyan);
-            border-radius: 50%; box-shadow: 0 0 10px var(--tiktok-cyan);
+            width: 6px; height: 6px; background: var(--yor-pink);
+            border-radius: 50%; box-shadow: 0 0 10px var(--yor-pink);
             animation: pulse 2s infinite;
         }
 
@@ -560,13 +596,13 @@
 
         .toast.success { border-color: rgba(34, 197, 94, 0.3); color: #86efac; }
         .toast.error { border-color: rgba(239, 68, 68, 0.3); color: #fca5a5; }
-        .toast.info { border-color: rgba(37, 244, 238, 0.3); color: var(--tiktok-cyan); }
+        .toast.info { border-color: var(--yor-pink); color: var(--yor-pink); }
         .toast svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
 
-        /* ========== YOR FORGER CHAT ========== */
+        /* ========== YOR CHAT ========== */
         .chat-modal {
             position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(10, 5, 8, 0.9);
             backdrop-filter: blur(10px);
             z-index: 99999;
             display: none;
@@ -583,6 +619,7 @@
             border: 1px solid var(--border);
             border-radius: 24px;
             display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(196, 69, 105, 0.3);
         }
 
         .chat-header {
@@ -597,7 +634,7 @@
             height: 48px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid rgba(255, 107, 157, 0.6);
+            border: 2px solid var(--yor-pink);
             box-shadow: 0 4px 20px rgba(255, 107, 157, 0.5);
             flex-shrink: 0;
             animation: yorPulse 3s ease-in-out infinite;
@@ -611,13 +648,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 15%;
+            object-position: center;
             display: block;
         }
 
         @keyframes yorPulse {
             0%, 100% { box-shadow: 0 4px 20px rgba(255, 107, 157, 0.5); }
-            50% { box-shadow: 0 4px 30px rgba(255, 107, 157, 0.8); }
+            50% { box-shadow: 0 4px 30px rgba(255, 107, 157, 0.9); }
         }
 
         .chat-info { flex: 1; }
@@ -633,9 +670,9 @@
         .chat-close {
             width: 34px; height: 34px;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 107, 157, 0.1);
             border: 1px solid var(--border);
-            color: var(--text-dim);
+            color: var(--yor-pink);
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
@@ -656,7 +693,7 @@
 
         .message.user {
             align-self: flex-end;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark));
             color: white; border-bottom-right-radius: 4px;
             box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
         }
@@ -683,13 +720,13 @@
 
         .chat-input-area input {
             flex: 1; padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 107, 157, 0.05);
             border: 1px solid var(--border);
             border-radius: 12px;
             color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
         }
 
-        .chat-input-area input:focus { outline: none; border-color: rgba(255, 107, 157, 0.5); }
+        .chat-input-area input:focus { outline: none; border-color: var(--yor-pink); }
 
         .chat-send {
             width: 44px; height: 44px;
@@ -719,12 +756,12 @@
 
         <div class="logo-wrap">
             <div class="logo-icon">
-                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </div>
         </div>
 
-        <h1>ZEROZX TIKTOK</h1>
-        <div class="subtitle">Download video TikTok + Chat Yor Forger AI</div>
+        <h1>YOR FORGER</h1>
+        <div class="subtitle">TikTok Downloader · Thorn Princess Edition</div>
 
         <div class="batch-toggle">
             <div class="batch-label">
@@ -747,7 +784,7 @@
 
         <div id="batchInput" style="display:none; margin-bottom: 20px;">
             <textarea id="batchUrls" rows="5" placeholder="Paste banyak link, satu per baris..."></textarea>
-            <button type="button" id="batchBtn" style="margin-top: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--tiktok-red), var(--tiktok-pink)); border: none; border-radius: 14px; color: white; font-weight: 700; cursor: pointer;">
+            <button type="button" id="batchBtn" style="margin-top: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, var(--yor-pink), var(--yor-dark)); border: none; border-radius: 14px; color: white; font-weight: 700; cursor: pointer;">
                 Download Semua
             </button>
         </div>
@@ -766,7 +803,7 @@
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v7.2 | Yor Forger Edition
+            Yor Forger System v1.0 | Thorn Princess Edition
         </div>
     </div>
 
@@ -786,7 +823,7 @@
             <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
             History Download
         </button>
-        <button type="button" class="menu-item ai" id="menuAI">
+        <button type="button" class="menu-item" id="menuAI">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             Chat Yor Forger
         </button>
@@ -808,12 +845,12 @@
         <div class="history-list" id="historyList"></div>
     </div>
 
-    <!-- CHAT MODAL YOR FORGER -->
+    <!-- CHAT MODAL YOR -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-window">
             <div class="chat-header">
                 <div class="chat-avatar">
-                    <img src="/yor.png" alt="Yor Forger" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:24px;\'>🗡️</span>';">
+                    <img src="/yor.png" alt="Yor Forger" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:24px;\'>🌸</span>';">
                 </div>
                 <div class="chat-info">
                     <div class="chat-name">Yor Forger</div>
@@ -841,8 +878,8 @@
 
     <script>
         var chatHistory = [];
-        var HISTORY_KEY = 'zerozx_history';
-        var THEME_KEY = 'zerozx_theme';
+        var HISTORY_KEY = 'yor_history';
+        var THEME_KEY = 'yor_theme';
 
         function showToast(message, type) {
             type = type || 'info';
@@ -1019,10 +1056,10 @@
                 '<div class="video-card">' +
                     '<img src="' + data.thumbnail + '" class="video-thumb">' +
                     '<div class="video-title">' + (data.title || 'Video') + '</div>' +
-                    '<div class="video-author">👤 <strong>@' + (data.author || 'Unknown') + '</strong></div>' +
+                    '<div class="video-author">🌸 <strong>@' + (data.author || 'Unknown') + '</strong></div>' +
                     (data.stats ? '<div class="video-meta">' +
                         '<div class="meta-item">▶ ' + formatNumber(data.stats.plays) + '</div>' +
-                        '<div class="meta-item likes">♥ ' + formatNumber(data.stats.likes) + '</div>' +
+                        '<div class="meta-item">♥ ' + formatNumber(data.stats.likes) + '</div>' +
                     '</div>' : '') +
                     '<a href="' + videoUrl + '" target="_blank" class="download-btn primary" download>' + iconDownload + ' Download Tanpa Watermark</a>' +
                     (data.video_hd ? '<a href="' + data.video_hd + '" target="_blank" class="download-btn" download>' + iconDownload + ' Download HD</a>' : '') +
@@ -1043,7 +1080,7 @@
 
         function shareVideo(url) {
             if (navigator.share) {
-                navigator.share({ title: 'Zerozx Downloader', url: url });
+                navigator.share({ title: 'Yor Forger Downloader', url: url });
             } else {
                 copyLink(url);
             }
@@ -1052,7 +1089,7 @@
         function showQR(url) {
             var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(url);
             var win = window.open('', '_blank', 'width=400,height=500');
-            win.document.write('<html><head><title>QR Code</title></head><body style="background:#000;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:sans-serif;"><div style="text-align:center;"><h2>Scan QR Code</h2><img src="' + qrUrl + '" style="border-radius:12px;margin-top:20px;"><p style="margin-top:20px;font-size:12px;color:#888;">Scan buat buka link</p></div></body></html>');
+            win.document.write('<html><head><title>QR Code</title></head><body style="background:#0a0508;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:sans-serif;"><div style="text-align:center;"><h2 style="color:#ff6b9d;">Scan QR Code</h2><img src="' + qrUrl + '" style="border-radius:12px;margin-top:20px;border:2px solid #ff6b9d;"><p style="margin-top:20px;font-size:12px;color:#888;">Scan buat buka link</p></div></body></html>');
         }
 
         function formatNumber(n) {
