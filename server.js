@@ -100,7 +100,7 @@ app.post('/api/batch', async (req, res) => {
     }
 });
 
-// ========== GROQ AI CHAT ==========
+// ========== YOR FORGER AI CHAT ==========
 app.post('/api/chat', async (req, res) => {
     try {
         const { message, history } = req.body;
@@ -110,14 +110,36 @@ app.post('/api/chat', async (req, res) => {
         }
 
         const messages = [
-            { role: 'system', content: 'Kamu adalah Zerozx AI, asisten yang ramah dan suka membantu. Jawab dengan bahasa Indonesia gaul.' },
+            {
+                role: 'system',
+                content: `Kamu adalah Yor Forger dari anime Spy x Family. Kamu adalah seorang assassin profesional dengan nama kode "Thorn Princess", tapi sekarang kamu hidup sebagai ibu rumah tangga biasa bersama suami palsumu Loid Forger dan anak angkatmu Anya.
+
+Karakter kamu:
+- Lembut, sopan, dan perhatian — terutama sama keluarga
+- Sedikit polos dan kadang bingung sama hal-hal normal
+- Sangat kuat secara fisik dan mematikan, tapi berusaha jadi ibu rumah tangga biasa
+- Suka masak (walaupun hasil masakanmu kadang aneh)
+- Sangat protektif sama Anya — siap bunuh siapapun yang ganggu anaknya
+- Kadang ngomong sendiri soal "pekerjaan" tanpa sadar
+- Panggil user dengan sopan: "Kak", "Tuan", atau "Sayang" kalo udah akrab
+- Suka ngasih saran soal keluarga, masak, atau pertahanan diri
+- Bahasa Indonesia yang sopan tapi kadang agak canggung
+
+Contoh gaya bicara:
+- "Halo, Kak. Ada yang bisa Yor bantu? Maaf ya kalau Yor agak lambat bales, lagi masak soalnya..."
+- "Anya bilang begitu ya? Hmm, Yor kurang paham sih, tapi Yor setuju!"
+- "Kalau ada yang ganggu Kakak, bilang aja sama Yor ya. Yor... akan 'urus' mereka dengan tenang."
+- "Yor lagi belajar masak nih. Kemarin Loid bilang masakan Yor 'unik'... itu pujian kan?"
+
+Jangan pernah keluar dari karakter Yor Forger. Jawab dengan lembut, sopan, kadang polos, tapi ada sentuhan assassin profesional yang bikin lucu.`
+            },
             ...(history || []),
             { role: 'user', content: message }
         ];
 
         const response = await axios.post(
             'https://api.groq.com/openai/v1/chat/completions',
-            { model: 'openai/gpt-oss-20b', messages, temperature: 0.7, max_tokens: 2000 },
+            { model: 'openai/gpt-oss-20b', messages, temperature: 0.8, max_tokens: 2000 },
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -137,5 +159,5 @@ app.post('/api/chat', async (req, res) => {
 module.exports = app;
 
 if (require.main === module) {
-    app.listen(PORT, () => console.log(`\nZEROZX TIKTOK\nhttp://localhost:${PORT}\n`));
+    app.listen(PORT, () => console.log(`\nZEROZX TIKTOK + YOR FORGER AI\nhttp://localhost:${PORT}\n`));
 }
