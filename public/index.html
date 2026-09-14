@@ -54,27 +54,13 @@
             100% { transform: scale(1.15); opacity: 1; }
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1;
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-        }
-
         .container {
             background: var(--card);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border);
             border-radius: 32px;
-            padding: 52px 48px;
+            padding: 40px 48px;
             width: 100%;
             max-width: 640px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
@@ -105,51 +91,78 @@
             50% { opacity: 0.65; }
         }
 
+        /* Tombol AI di dalam container */
+        .ai-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .ai-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .ai-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .ai-toggle-btn:active {
+            transform: translateY(0);
+        }
+
+        .ai-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
         .logo-wrap {
             display: flex;
             justify-content: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .logo-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             background: linear-gradient(135deg, #000, #1a1a2e);
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(37, 244, 238, 0.3), 0 0 60px rgba(254, 44, 85, 0.2);
+            box-shadow: 0 0 25px rgba(37, 244, 238, 0.3), 0 0 50px rgba(254, 44, 85, 0.2);
             animation: logoFloat 3s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(37, 244, 238, 0.15), rgba(254, 44, 85, 0.15));
         }
 
         @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(2deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
-        .logo-icon svg {
-            width: 40px; height: 40px;
-            fill: white;
-            position: relative;
-            z-index: 1;
-        }
+        .logo-icon svg { width: 36px; height: 36px; fill: white; }
 
         h1 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 900;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(135deg, var(--tiktok-cyan), #fff, var(--tiktok-red));
             background-size: 250% auto;
             -webkit-background-clip: text;
@@ -164,22 +177,22 @@
         .subtitle {
             text-align: center;
             color: var(--text-dim);
-            margin-bottom: 36px;
+            margin-bottom: 28px;
             font-size: 14px;
         }
 
         .input-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         input {
             flex: 1;
-            padding: 18px 22px;
+            padding: 16px 20px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 14px;
             color: var(--text);
             font-family: 'Inter', sans-serif;
             font-size: 14px;
@@ -196,16 +209,16 @@
         }
 
         button#downloadBtn {
-            padding: 18px 34px;
+            padding: 16px 30px;
             background: linear-gradient(135deg, var(--tiktok-red), var(--tiktok-pink));
             border: none;
-            border-radius: 16px;
+            border-radius: 14px;
             color: white;
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s;
             white-space: nowrap;
             display: flex;
             align-items: center;
@@ -215,58 +228,51 @@
         }
 
         button#downloadBtn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(254, 44, 85, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(254, 44, 85, 0.6);
         }
 
         button#downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
         button#downloadBtn svg { width: 18px; height: 18px; fill: white; }
 
-        .result { margin-top: 28px; display: none; }
-        .result.show { display: block; animation: resultIn 0.6s; }
-        @keyframes resultIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .result { margin-top: 24px; display: none; }
+        .result.show { display: block; animation: resultIn 0.5s; }
+        @keyframes resultIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .video-card {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 24px;
-            transition: all 0.4s;
-        }
-
-        .video-card:hover {
-            border-color: rgba(37, 244, 238, 0.3);
-            box-shadow: 0 10px 40px rgba(254, 44, 85, 0.15);
+            border-radius: 20px;
+            padding: 22px;
         }
 
         .video-thumb {
             width: 100%;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 14px;
+            margin-bottom: 18px;
         }
 
-        .video-title { font-size: 16px; margin-bottom: 12px; font-weight: 700; line-height: 1.5; }
-        .video-author { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 14px; color: var(--text-dim); }
+        .video-title { font-size: 15px; margin-bottom: 10px; font-weight: 700; line-height: 1.5; }
+        .video-author { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 13px; color: var(--text-dim); }
         .video-author strong { color: #fff; }
         .video-meta {
-            display: flex; gap: 16px; flex-wrap: wrap;
-            margin-bottom: 20px; padding: 14px;
+            display: flex; gap: 14px; flex-wrap: wrap;
+            margin-bottom: 18px; padding: 12px;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px; border: 1px solid var(--border);
+            border-radius: 10px; border: 1px solid var(--border);
         }
-        .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-dim); }
-        .meta-item svg { width: 14px; height: 14px; fill: var(--tiktok-cyan); }
+        .meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-dim); }
+        .meta-item svg { width: 13px; height: 13px; fill: var(--tiktok-cyan); }
         .meta-item.likes svg { fill: var(--tiktok-red); }
 
         .download-btn {
             display: flex; align-items: center; justify-content: center;
-            gap: 10px; width: 100%; padding: 15px 20px;
+            gap: 10px; width: 100%; padding: 14px 18px;
             background: rgba(37, 244, 238, 0.08);
             border: 1px solid rgba(37, 244, 238, 0.25);
-            border-radius: 14px; color: var(--tiktok-cyan);
+            border-radius: 12px; color: var(--tiktok-cyan);
             text-align: center; text-decoration: none;
-            margin-bottom: 10px; font-size: 14px; font-weight: 700;
+            margin-bottom: 8px; font-size: 13px; font-weight: 700;
             transition: all 0.3s;
         }
 
@@ -276,21 +282,21 @@
             box-shadow: 0 4px 15px rgba(254, 44, 85, 0.3);
         }
 
-        .download-btn svg { width: 18px; height: 18px; fill: currentColor; }
-        .download-btn:hover { transform: translateY(-2px); background: rgba(37, 244, 238, 0.15); }
-        .download-btn.primary:hover { box-shadow: 0 10px 30px rgba(254, 44, 85, 0.5); }
+        .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
+        .download-btn:hover { transform: translateY(-2px); }
+        .download-btn.primary:hover { box-shadow: 0 10px 25px rgba(254, 44, 85, 0.5); }
 
-        .loading { text-align: center; padding: 36px; color: var(--text-dim); display: none; }
+        .loading { text-align: center; padding: 30px; color: var(--text-dim); display: none; }
         .loading.show { display: block; }
 
         .spinner {
-            display: inline-block; width: 40px; height: 40px;
+            display: inline-block; width: 36px; height: 36px;
             border: 3px solid rgba(37, 244, 238, 0.15);
             border-top-color: var(--tiktok-cyan);
             border-right-color: var(--tiktok-red);
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -298,80 +304,34 @@
         .error {
             background: rgba(239, 68, 68, 0.08);
             border: 1px solid rgba(239, 68, 68, 0.25);
-            color: #fca5a5; padding: 16px 20px;
-            border-radius: 14px; margin-top: 24px;
-            display: none; font-size: 14px;
-            align-items: center; gap: 12px;
+            color: #fca5a5; padding: 14px 18px;
+            border-radius: 12px; margin-top: 20px;
+            display: none; font-size: 13px;
+            align-items: center; gap: 10px;
         }
 
         .error.show { display: flex; }
-        .error svg { width: 22px; height: 22px; fill: #fca5a5; }
+        .error svg { width: 20px; height: 20px; fill: #fca5a5; }
 
         .footer {
-            text-align: center; margin-top: 36px;
-            font-size: 12px; color: var(--text-dim);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-align: center; margin-top: 28px;
+            font-size: 11px; color: var(--text-dim);
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
 
         .footer .dot {
             width: 6px; height: 6px; background: var(--tiktok-cyan);
-            border-radius: 50%; box-shadow: 0 0 12px var(--tiktok-cyan);
+            border-radius: 50%; box-shadow: 0 0 10px var(--tiktok-cyan);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ========== AI FAB BUTTON ========== */
-        .ai-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 9999;
-            animation: fabFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes fabFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .ai-fab:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.7);
-        }
-
-        .ai-fab svg { width: 30px; height: 30px; fill: white; }
-
-        .ai-fab::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(139, 92, 246, 0.4);
-            animation: fabRing 2s infinite;
-        }
-
-        @keyframes fabRing {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
         /* ========== AI CHAT MODAL ========== */
         .chat-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 99999;
@@ -379,36 +339,32 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            animation: fadeIn 0.3s;
         }
 
         .chat-modal.show { display: flex; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .chat-window {
             width: 100%;
             max-width: 560px;
             height: 80vh;
             max-height: 700px;
-            background: rgba(15, 15, 20, 0.95);
-            backdrop-filter: blur(30px);
+            background: rgba(15, 15, 20, 0.98);
             border: 1px solid var(--border);
             border-radius: 24px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: chatIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            animation: chatIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes chatIn {
-            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .chat-header {
-            padding: 18px 22px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -417,25 +373,24 @@
         }
 
         .chat-avatar {
-            width: 40px; height: 40px;
-            border-radius: 12px;
+            width: 38px; height: 38px;
+            border-radius: 10px;
             background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
-        .chat-avatar svg { width: 22px; height: 22px; fill: white; }
+        .chat-avatar svg { width: 20px; height: 20px; fill: white; }
 
         .chat-info { flex: 1; }
-        .chat-name { font-size: 15px; font-weight: 700; color: #fff; }
+        .chat-name { font-size: 14px; font-weight: 700; color: #fff; }
         .chat-status {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-dim);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .chat-status .status-dot {
@@ -444,8 +399,8 @@
         }
 
         .chat-close {
-            width: 36px; height: 36px;
-            border-radius: 10px;
+            width: 34px; height: 34px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
             color: var(--text-dim);
@@ -459,22 +414,20 @@
         .chat-close:hover {
             background: rgba(239, 68, 68, 0.15);
             color: #fca5a5;
-            border-color: rgba(239, 68, 68, 0.3);
         }
 
-        .chat-close svg { width: 18px; height: 18px; fill: currentColor; }
+        .chat-close svg { width: 16px; height: 16px; fill: currentColor; }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .chat-messages::-webkit-scrollbar { width: 6px; }
-        .chat-messages::-webkit-scrollbar-track { background: transparent; }
         .chat-messages::-webkit-scrollbar-thumb {
             background: rgba(139, 92, 246, 0.3);
             border-radius: 3px;
@@ -482,18 +435,12 @@
 
         .message {
             max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 14px;
+            padding: 11px 15px;
+            border-radius: 14px;
+            font-size: 13px;
             line-height: 1.5;
-            animation: msgIn 0.3s;
             word-wrap: break-word;
             white-space: pre-wrap;
-        }
-
-        @keyframes msgIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .message.user {
@@ -514,11 +461,11 @@
         .message.typing {
             display: flex;
             gap: 4px;
-            padding: 16px;
+            padding: 14px;
         }
 
         .message.typing span {
-            width: 8px; height: 8px;
+            width: 7px; height: 7px;
             border-radius: 50%;
             background: var(--ai-purple);
             animation: typing 1.4s infinite;
@@ -529,38 +476,37 @@
 
         @keyframes typing {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-            30% { transform: translateY(-8px); opacity: 1; }
+            30% { transform: translateY(-6px); opacity: 1; }
         }
 
         .chat-input-area {
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-top: 1px solid var(--border);
             display: flex;
-            gap: 10px;
+            gap: 8px;
             background: rgba(0, 0, 0, 0.3);
         }
 
         .chat-input-area input {
             flex: 1;
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 12px;
             color: var(--text);
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .chat-input-area input:focus {
             outline: none;
             border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
 
         .chat-send {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
             border: none;
             cursor: pointer;
@@ -573,31 +519,40 @@
 
         .chat-send:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.6);
         }
 
         .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .chat-send svg { width: 20px; height: 20px; fill: white; }
+        .chat-send svg { width: 18px; height: 18px; fill: white; }
 
         @media (max-width: 600px) {
-            .container { padding: 32px 22px; border-radius: 24px; }
-            h1 { font-size: 26px; }
+            .container { padding: 28px 20px; border-radius: 24px; }
+            h1 { font-size: 24px; }
             .input-group { flex-direction: column; }
             button#downloadBtn { width: 100%; }
-            .ai-fab { bottom: 20px; right: 20px; width: 56px; height: 56px; }
             .chat-window { height: 85vh; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- TOMBOL AI DI DALAM CONTAINER -->
+        <div class="ai-toggle">
+            <button class="ai-toggle-btn" onclick="openChat()">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.54 0-3-.42-4.24-1.16l-.5-.29-3.14.94.94-3.14-.29-.5C4.42 15 4 13.54 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
+                Chat dengan Zerozx AI
+            </button>
+        </div>
+
         <div class="logo-wrap">
             <div class="logo-icon">
                 <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
             </div>
         </div>
+
         <h1>ZEROZX TIKTOK</h1>
         <div class="subtitle">Download video TikTok tanpa watermark</div>
+
         <div class="input-group">
             <input type="text" id="urlInput" placeholder="Paste link TikTok di sini...">
             <button onclick="download()" id="downloadBtn">
@@ -605,25 +560,24 @@
                 Download
             </button>
         </div>
+
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p>Ngambil video... sabar cuy</p>
         </div>
+
         <div class="error" id="error">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
             <span id="errorText"></span>
         </div>
+
         <div class="result" id="result"></div>
+
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v3.1 | TikTok + AI
+            Zerozx System v3.2 | TikTok + AI
         </div>
     </div>
-
-    <!-- AI FAB BUTTON -->
-    <button class="ai-fab" onclick="openChat()" title="Chat dengan AI">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.54 0-3-.42-4.24-1.16l-.5-.29-3.14.94.94-3.14-.29-.5C4.42 15 4 13.54 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
-    </button>
 
     <!-- AI CHAT MODAL -->
     <div class="chat-modal" id="chatModal">
@@ -670,4 +624,130 @@
             result.classList.remove('show');
             error.classList.remove('show');
             loading.classList.add('show');
-            btn.dis
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/tiktok', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                const data = await response.json();
+                if (!data.success) throw new Error(data.error || 'Gagal download');
+                renderResult(data);
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                loading.classList.remove('show');
+                btn.disabled = false;
+            }
+        }
+
+        function renderResult(data) {
+            const result = document.getElementById('result');
+            const iconDownload = '<svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>';
+            const iconVideo = '<svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>';
+            const iconMusic = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>';
+            const iconEye = '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+            const iconHeart = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
+            result.innerHTML = `
+                <div class="video-card">
+                    <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
+                    <div class="video-title">${data.title}</div>
+                    <div class="video-author">
+                        👤 <strong>@${data.author}</strong> ${data.author_nickname !== 'Unknown' ? `· ${data.author_nickname}` : ''}
+                    </div>
+                    <div class="video-meta">
+                        <div class="meta-item">${iconEye} ${formatNumber(data.stats.plays)}</div>
+                        <div class="meta-item likes">${iconHeart} ${formatNumber(data.stats.likes)}</div>
+                        <div class="meta-item">💬 ${formatNumber(data.stats.comments)}</div>
+                    </div>
+                    <a href="${data.video_no_watermark}" target="_blank" class="download-btn primary" download>
+                        ${iconDownload} Download Tanpa Watermark
+                    </a>
+                    ${data.video_hd ? `
+                    <a href="${data.video_hd}" target="_blank" class="download-btn" download>
+                        ${iconVideo} Download HD
+                    </a>` : ''}
+                    ${data.music ? `
+                    <a href="${data.music}" target="_blank" class="download-btn" download>
+                        ${iconMusic} Download Audio
+                    </a>` : ''}
+                </div>
+            `;
+            result.classList.add('show');
+        }
+
+        function formatNumber(n) {
+            if (!n) return '0';
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+            return n.toString();
+        }
+
+        function showError(msg) {
+            const error = document.getElementById('error');
+            document.getElementById('errorText').textContent = msg;
+            error.classList.add('show');
+        }
+
+        document.getElementById('urlInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') download();
+        });
+
+        // ========== AI CHAT ==========
+        function openChat() {
+            document.getElementById('chatModal').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('chatInput').focus();
+            }, 300);
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').classList.remove('show');
+        }
+
+        // Klik di luar chat window buat nutup
+        document.getElementById('chatModal').addEventListener('click', (e) => {
+            if (e.target.id === 'chatModal') closeChat();
+        });
+
+        // ESC buat nutup
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeChat();
+        });
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSend');
+            const messages = document.getElementById('chatMessages');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Tampilkan pesan user
+            messages.innerHTML += `<div class="message user">${escapeHtml(message)}</div>`;
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Tampilkan typing indicator
+            const typingId = 'typing-' + Date.now();
+            messages.innerHTML += `
+                <div class="message ai typing" id="${typingId}">
+                    <span></span><span></span><span></span>
+                </div>
+            `;
+            messages.scrollTop = messages.scrollHeight;
+
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        history: chatHistory
+                    })
+                });
