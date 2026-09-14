@@ -16,7 +16,6 @@
             --tiktok-pink: #ff0050;
             --ai-purple: #8b5cf6;
             --ai-blue: #3b82f6;
-            --bg: #000000;
             --card: rgba(15, 15, 20, 0.8);
             --border: rgba(255, 255, 255, 0.08);
             --text: #ffffff;
@@ -60,7 +59,7 @@
             -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border);
             border-radius: 32px;
-            padding: 40px 48px;
+            padding: 36px 40px;
             width: 100%;
             max-width: 640px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
@@ -91,7 +90,6 @@
             50% { opacity: 0.65; }
         }
 
-        /* Tombol AI di dalam container */
         .ai-toggle {
             display: flex;
             justify-content: center;
@@ -111,7 +109,7 @@
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s;
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
             position: relative;
             z-index: 10;
@@ -122,25 +120,12 @@
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
         }
 
-        .ai-toggle-btn:active {
-            transform: translateY(0);
-        }
+        .ai-toggle-btn svg { width: 20px; height: 20px; fill: white; }
 
-        .ai-toggle-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        .logo-wrap {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+        .logo-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
 
         .logo-icon {
-            width: 64px;
-            height: 64px;
+            width: 64px; height: 64px;
             border-radius: 18px;
             background: linear-gradient(135deg, #000, #1a1a2e);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -169,7 +154,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shine 4s linear infinite;
-            letter-spacing: -1px;
         }
 
         @keyframes shine { to { background-position: 250% center; } }
@@ -181,11 +165,7 @@
             font-size: 14px;
         }
 
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
+        .input-group { display: flex; gap: 10px; margin-bottom: 24px; }
 
         input {
             flex: 1;
@@ -204,7 +184,6 @@
         input:focus {
             outline: none;
             border-color: rgba(37, 244, 238, 0.5);
-            background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 0 0 4px rgba(37, 244, 238, 0.1);
         }
 
@@ -236,8 +215,7 @@
         button#downloadBtn svg { width: 18px; height: 18px; fill: white; }
 
         .result { margin-top: 24px; display: none; }
-        .result.show { display: block; animation: resultIn 0.5s; }
-        @keyframes resultIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .result.show { display: block; }
 
         .video-card {
             background: rgba(0, 0, 0, 0.5);
@@ -246,21 +224,19 @@
             padding: 22px;
         }
 
-        .video-thumb {
-            width: 100%;
-            border-radius: 14px;
-            margin-bottom: 18px;
-        }
+        .video-thumb { width: 100%; border-radius: 14px; margin-bottom: 18px; }
 
         .video-title { font-size: 15px; margin-bottom: 10px; font-weight: 700; line-height: 1.5; }
         .video-author { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 13px; color: var(--text-dim); }
         .video-author strong { color: #fff; }
+
         .video-meta {
             display: flex; gap: 14px; flex-wrap: wrap;
             margin-bottom: 18px; padding: 12px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 10px; border: 1px solid var(--border);
         }
+
         .meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-dim); }
         .meta-item svg { width: 13px; height: 13px; fill: var(--tiktok-cyan); }
         .meta-item.likes svg { fill: var(--tiktok-red); }
@@ -284,7 +260,6 @@
 
         .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
         .download-btn:hover { transform: translateY(-2px); }
-        .download-btn.primary:hover { box-shadow: 0 10px 25px rgba(254, 44, 85, 0.5); }
 
         .loading { text-align: center; padding: 30px; color: var(--text-dim); display: none; }
         .loading.show { display: block; }
@@ -327,7 +302,6 @@
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ========== AI CHAT MODAL ========== */
         .chat-modal {
             position: fixed;
             inset: 0;
@@ -355,12 +329,6 @@
             flex-direction: column;
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-            animation: chatIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes chatIn {
-            from { opacity: 0; transform: scale(0.92) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .chat-header {
@@ -411,11 +379,7 @@
             transition: all 0.3s;
         }
 
-        .chat-close:hover {
-            background: rgba(239, 68, 68, 0.15);
-            color: #fca5a5;
-        }
-
+        .chat-close:hover { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
         .chat-close svg { width: 16px; height: 16px; fill: currentColor; }
 
         .chat-messages {
@@ -517,12 +481,8 @@
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
-        .chat-send:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.6);
-        }
-
-        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .chat-send:hover { transform: translateY(-2px); }
+        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
         .chat-send svg { width: 18px; height: 18px; fill: white; }
 
         @media (max-width: 600px) {
@@ -530,16 +490,14 @@
             h1 { font-size: 24px; }
             .input-group { flex-direction: column; }
             button#downloadBtn { width: 100%; }
-            .chat-window { height: 85vh; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- TOMBOL AI DI DALAM CONTAINER -->
         <div class="ai-toggle">
-            <button class="ai-toggle-btn" onclick="openChat()">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.54 0-3-.42-4.24-1.16l-.5-.29-3.14.94.94-3.14-.29-.5C4.42 15 4 13.54 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
+            <button type="button" class="ai-toggle-btn" id="aiBtn">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.46 5.12L2 22l4.88-1.46C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
                 Chat dengan Zerozx AI
             </button>
         </div>
@@ -555,7 +513,7 @@
 
         <div class="input-group">
             <input type="text" id="urlInput" placeholder="Paste link TikTok di sini...">
-            <button onclick="download()" id="downloadBtn">
+            <button type="button" id="downloadBtn">
                 <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
                 Download
             </button>
@@ -575,11 +533,10 @@
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v3.2 | TikTok + AI
+            Zerozx System v3.3 | TikTok + AI
         </div>
     </div>
 
-    <!-- AI CHAT MODAL -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-window">
             <div class="chat-header">
@@ -592,7 +549,7 @@
                         <span class="status-dot"></span> Online · DeepSeek
                     </div>
                 </div>
-                <button class="chat-close" onclick="closeChat()">
+                <button type="button" class="chat-close" id="chatClose">
                     <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </div>
@@ -600,8 +557,8 @@
                 <div class="message ai">Halo cuy! Gw Zerozx AI. Ada yang bisa gw bantu? Tanya apa aja, gw siap jawab!</div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button class="chat-send" id="chatSend" onclick="sendMessage()">
+                <input type="text" id="chatInput" placeholder="Ketik pesan...">
+                <button type="button" class="chat-send" id="chatSend">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
             </div>
@@ -609,17 +566,21 @@
     </div>
 
     <script>
-        let chatHistory = [];
+        var chatHistory = [];
 
-        // ========== TIKTOK ==========
-        async function download() {
-            const url = document.getElementById('urlInput').value.trim();
-            const btn = document.getElementById('downloadBtn');
-            const loading = document.getElementById('loading');
-            const result = document.getElementById('result');
-            const error = document.getElementById('error');
+        // ========== TIKTOK DOWNLOAD ==========
+        document.getElementById('downloadBtn').addEventListener('click', async function() {
+            var url = document.getElementById('urlInput').value.trim();
+            var btn = document.getElementById('downloadBtn');
+            var loading = document.getElementById('loading');
+            var result = document.getElementById('result');
+            var error = document.getElementById('error');
 
-            if (!url) { showError('Masukin link TikTok dulu cuy!'); return; }
+            if (!url) {
+                document.getElementById('errorText').textContent = 'Masukin link TikTok dulu cuy!';
+                error.classList.add('show');
+                return;
+            }
 
             result.classList.remove('show');
             error.classList.remove('show');
@@ -627,55 +588,51 @@
             btn.disabled = true;
 
             try {
-                const response = await fetch('/api/tiktok', {
+                var response = await fetch('/api/tiktok', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url })
+                    body: JSON.stringify({ url: url })
                 });
-                const data = await response.json();
+                var data = await response.json();
+
                 if (!data.success) throw new Error(data.error || 'Gagal download');
                 renderResult(data);
             } catch (err) {
-                showError(err.message);
+                document.getElementById('errorText').textContent = err.message;
+                error.classList.add('show');
             } finally {
                 loading.classList.remove('show');
                 btn.disabled = false;
             }
-        }
+        });
+
+        // Enter buat submit
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('downloadBtn').click();
+        });
 
         function renderResult(data) {
-            const result = document.getElementById('result');
-            const iconDownload = '<svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>';
-            const iconVideo = '<svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>';
-            const iconMusic = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>';
-            const iconEye = '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
-            const iconHeart = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+            var result = document.getElementById('result');
+            var iconDownload = '<svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>';
+            var iconVideo = '<svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>';
+            var iconMusic = '<svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg>';
+            var iconEye = '<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+            var iconHeart = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 
-            result.innerHTML = `
-                <div class="video-card">
-                    <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
-                    <div class="video-title">${data.title}</div>
-                    <div class="video-author">
-                        👤 <strong>@${data.author}</strong> ${data.author_nickname !== 'Unknown' ? `· ${data.author_nickname}` : ''}
-                    </div>
-                    <div class="video-meta">
-                        <div class="meta-item">${iconEye} ${formatNumber(data.stats.plays)}</div>
-                        <div class="meta-item likes">${iconHeart} ${formatNumber(data.stats.likes)}</div>
-                        <div class="meta-item">💬 ${formatNumber(data.stats.comments)}</div>
-                    </div>
-                    <a href="${data.video_no_watermark}" target="_blank" class="download-btn primary" download>
-                        ${iconDownload} Download Tanpa Watermark
-                    </a>
-                    ${data.video_hd ? `
-                    <a href="${data.video_hd}" target="_blank" class="download-btn" download>
-                        ${iconVideo} Download HD
-                    </a>` : ''}
-                    ${data.music ? `
-                    <a href="${data.music}" target="_blank" class="download-btn" download>
-                        ${iconMusic} Download Audio
-                    </a>` : ''}
-                </div>
-            `;
+            result.innerHTML =
+                '<div class="video-card">' +
+                    '<img src="' + data.thumbnail + '" class="video-thumb" alt="Thumbnail">' +
+                    '<div class="video-title">' + data.title + '</div>' +
+                    '<div class="video-author">👤 <strong>@' + data.author + '</strong></div>' +
+                    '<div class="video-meta">' +
+                        '<div class="meta-item">' + iconEye + ' ' + formatNumber(data.stats.plays) + '</div>' +
+                        '<div class="meta-item likes">' + iconHeart + ' ' + formatNumber(data.stats.likes) + '</div>' +
+                    '</div>' +
+                    '<a href="' + data.video_no_watermark + '" target="_blank" class="download-btn primary" download>' + iconDownload + ' Download Tanpa Watermark</a>' +
+                    (data.video_hd ? '<a href="' + data.video_hd + '" target="_blank" class="download-btn" download>' + iconVideo + ' Download HD</a>' : '') +
+                    (data.music ? '<a href="' + data.music + '" target="_blank" class="download-btn" download>' + iconMusic + ' Download Audio</a>' : '') +
+                '</div>';
+
             result.classList.add('show');
         }
 
@@ -686,64 +643,50 @@
             return n.toString();
         }
 
-        function showError(msg) {
-            const error = document.getElementById('error');
-            document.getElementById('errorText').textContent = msg;
-            error.classList.add('show');
-        }
-
-        document.getElementById('urlInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') download();
-        });
-
         // ========== AI CHAT ==========
-        function openChat() {
+        document.getElementById('aiBtn').addEventListener('click', function() {
             document.getElementById('chatModal').classList.add('show');
-            setTimeout(() => {
+            setTimeout(function() {
                 document.getElementById('chatInput').focus();
             }, 300);
-        }
+        });
 
-        function closeChat() {
+        document.getElementById('chatClose').addEventListener('click', function() {
             document.getElementById('chatModal').classList.remove('show');
-        }
-
-        // Klik di luar chat window buat nutup
-        document.getElementById('chatModal').addEventListener('click', (e) => {
-            if (e.target.id === 'chatModal') closeChat();
         });
 
-        // ESC buat nutup
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeChat();
+        document.getElementById('chatModal').addEventListener('click', function(e) {
+            if (e.target.id === 'chatModal') {
+                document.getElementById('chatModal').classList.remove('show');
+            }
         });
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        document.getElementById('chatSend').addEventListener('click', sendMessage);
 
         async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const sendBtn = document.getElementById('chatSend');
-            const messages = document.getElementById('chatMessages');
-            const message = input.value.trim();
+            var input = document.getElementById('chatInput');
+            var sendBtn = document.getElementById('chatSend');
+            var messages = document.getElementById('chatMessages');
+            var message = input.value.trim();
 
             if (!message) return;
 
-            // Tampilkan pesan user
-            messages.innerHTML += `<div class="message user">${escapeHtml(message)}</div>`;
+            messages.innerHTML += '<div class="message user">' + escapeHtml(message) + '</div>';
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
 
-            // Tampilkan typing indicator
-            const typingId = 'typing-' + Date.now();
-            messages.innerHTML += `
-                <div class="message ai typing" id="${typingId}">
-                    <span></span><span></span><span></span>
-                </div>
-            `;
+            var typingId = 'typing-' + Date.now();
+            messages.innerHTML += '<div class="message ai typing" id="' + typingId + '"><span></span><span></span><span></span></div>';
             messages.scrollTop = messages.scrollHeight;
 
             sendBtn.disabled = true;
 
             try {
-                const response = await fetch('/api/chat', {
+                var response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -751,3 +694,40 @@
                         history: chatHistory
                     })
                 });
+
+                var data = await response.json();
+                var typingEl = document.getElementById(typingId);
+                if (typingEl) typingEl.remove();
+
+                if (!data.success) throw new Error(data.error || 'Gagal konek AI');
+
+                messages.innerHTML += '<div class="message ai">' + escapeHtml(data.reply) + '</div>';
+                messages.scrollTop = messages.scrollHeight;
+
+                chatHistory.push({ role: 'user', content: message });
+                chatHistory.push({ role: 'assistant', content: data.reply });
+
+                if (chatHistory.length > 20) {
+                    chatHistory = chatHistory.slice(-20);
+                }
+
+            } catch (err) {
+                var typingEl2 = document.getElementById(typingId);
+                if (typingEl2) typingEl2.remove();
+
+                messages.innerHTML += '<div class="message ai" style="color:#fca5a5;">Error: ' + escapeHtml(err.message) + '</div>';
+                messages.scrollTop = messages.scrollHeight;
+            } finally {
+                sendBtn.disabled = false;
+                input.focus();
+            }
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
