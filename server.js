@@ -68,10 +68,8 @@ app.post('/api/instagram', async (req, res) => {
             return res.status(400).json({ error: 'URL bukan dari Instagram!' });
         }
 
-        // Pake API publik snapinsta/igram
         const response = await axios.get('https://api.instagram.com/oembed/', {
-            params: { url },
-            timeout: 15000
+            params: { url }, timeout: 15000
         });
 
         res.json({
@@ -124,51 +122,36 @@ app.post('/api/twitter', async (req, res) => {
     }
 });
 
-// ========== TRENDING TIKTOK (FIX) ==========
+// ========== TRENDING TIKTOK ==========
 app.get('/api/trending', async (req, res) => {
     try {
-        // Coba endpoint 1: tikwm feed list
-        try {
-            const response = await axios.get('https://www.tikwm.com/api/feed/list', {
-                params: { region: 'ID', count: 12 },
-                timeout: 10000,
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-                }
-            });
-
-            if (response.data.code === 0 && response.data.data && response.data.data.length > 0) {
-                const videos = response.data.data.map(v => ({
-                    id: v.video_id,
-                    title: v.title || 'No title',
-                    author: v.author?.unique_id || 'unknown',
-                    thumbnail: fixTikwmUrl(v.cover),
-                    video_url: fixTikwmUrl(v.play),
-                    stats: {
-                        plays: v.play_count || 0,
-                        likes: v.digg_count || 0
-                    }
-                }));
-                return res.json({ success: true, videos });
+        const response = await axios.get('https://www.tikwm.com/api/feed/list', {
+            params: { region: 'ID', count: 12 },
+            timeout: 10000,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
-        } catch (e) {
-            console.log('Trending endpoint 1 failed:', e.message);
+        });
+
+        if (response.data.code === 0 && response.data.data && response.data.data.length > 0) {
+            const videos = response.data.data.map(v => ({
+                id: v.video_id,
+                title: v.title || 'No title',
+                author: v.author?.unique_id || 'unknown',
+                thumbnail: fixTikwmUrl(v.cover),
+                video_url: fixTikwmUrl(v.play),
+                stats: {
+                    plays: v.play_count || 0,
+                    likes: v.digg_count || 0
+                }
+            }));
+            return res.json({ success: true, videos });
         }
 
-        // Fallback: kirim array kosong dengan pesan
-        res.json({ 
-            success: true, 
-            videos: [], 
-            message: 'Trending sementara gak tersedia. Coba lagi nanti!' 
-        });
-
+        res.json({ success: true, videos: [], message: 'Trending sementara gak tersedia' });
     } catch (error) {
         console.error('Trending error:', error.message);
-        res.json({ 
-            success: true, 
-            videos: [], 
-            message: 'Trending sementara gak tersedia' 
-        });
+        res.json({ success: true, videos: [], message: 'Trending sementara gak tersedia' });
     }
 });
 
