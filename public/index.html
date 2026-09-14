@@ -79,6 +79,7 @@
             max-width: 640px;
             box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
             position: relative;
+            z-index: 1;
             animation: containerIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -320,6 +321,7 @@
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+        /* ========== AI FAB BUTTON ========== */
         .ai-fab {
             position: fixed;
             bottom: 30px;
@@ -335,7 +337,7 @@
             justify-content: center;
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 100;
+            z-index: 9999;
             animation: fabFloat 3s ease-in-out infinite;
         }
 
@@ -365,13 +367,14 @@
             100% { transform: scale(1.4); opacity: 0; }
         }
 
+        /* ========== AI CHAT MODAL ========== */
         .chat-modal {
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 200;
+            z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
@@ -673,9 +676,4 @@
                 const response = await fetch('/api/tiktok', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url })
-                });
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error || 'Gagal download');
-                renderResult(data);
-           
+                    body: JSON.stringify
