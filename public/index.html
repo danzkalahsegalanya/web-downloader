@@ -228,8 +228,8 @@
 
         <!-- TABS -->
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('tiktok')">🎵 TikTok</div>
-            <div class="tab" onclick="switchTab('youtube')">▶️ YouTube</div>
+            <div class="tab active" onclick="switchTab('tiktok', event)">🎵 TikTok</div>
+            <div class="tab" onclick="switchTab('youtube', event)">▶️ YouTube</div>
         </div>
 
         <!-- INPUT -->
@@ -258,10 +258,10 @@
     <script>
         let currentTab = 'tiktok';
 
-        function switchTab(tab) {
+        function switchTab(tab, event) {
             currentTab = tab;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event) event.target.classList.add('active');
 
             const input = document.getElementById('urlInput');
             if (tab === 'tiktok') {
@@ -332,15 +332,15 @@
                         <div class="video-meta">
                             👤 ${data.author} | ⏱️ ${data.duration}s
                         </div>
-                        <a href="/api/proxy?url=${encodeURIComponent(data.video_no_watermark)}&filename=tiktok_no_wm.mp4" class="download-btn" download>
+                        <a href="${data.video_no_watermark}" target="_blank" class="download-btn" download>
                             📥 Download Tanpa Watermark
                         </a>
                         ${data.video_hd ? `
-                        <a href="/api/proxy?url=${encodeURIComponent(data.video_hd)}&filename=tiktok_hd.mp4" class="download-btn" download>
+                        <a href="${data.video_hd}" target="_blank" class="download-btn" download>
                             🎬 Download HD
                         </a>` : ''}
                         ${data.music ? `
-                        <a href="/api/proxy?url=${encodeURIComponent(data.music)}&filename=tiktok_music.mp3" class="download-btn" download>
+                        <a href="${data.music}" target="_blank" class="download-btn" download>
                             🎵 Download Audio
                         </a>` : ''}
                     </div>
@@ -355,13 +355,13 @@
                         </div>
                         <h4 style="color:#00ff88; margin: 15px 0 10px;">🎬 Video</h4>
                         ${data.video.map(v => `
-                            <a href="/api/proxy?url=${encodeURIComponent(v.url)}&filename=youtube_${v.quality}.${v.container}" class="download-btn" download>
+                            <a href="${v.url}" target="_blank" class="download-btn" download>
                                 📥 ${v.quality} (${v.size})
                             </a>
                         `).join('')}
                         <h4 style="color:#00ff88; margin: 15px 0 10px;">🎵 Audio</h4>
                         ${data.audio.map(a => `
-                            <a href="/api/proxy?url=${encodeURIComponent(a.url)}&filename=youtube_audio.${a.container}" class="download-btn" download>
+                            <a href="${a.url}" target="_blank" class="download-btn" download>
                                 🎵 ${a.quality}
                             </a>
                         `).join('')}
