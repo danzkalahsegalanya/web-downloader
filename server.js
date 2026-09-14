@@ -61,15 +61,15 @@ app.post('/api/tiktok', async (req, res) => {
     }
 });
 
-// ========== DEEPSEEK AI CHAT ==========
+// ========== GROQ AI CHAT ==========
 app.post('/api/chat', async (req, res) => {
     try {
         const { message, history } = req.body;
 
         if (!message) return res.status(400).json({ error: 'Pesan wajib diisi!' });
 
-        if (!process.env.DEEPSEEK_API_KEY) {
-            return res.status(500).json({ error: 'API key DeepSeek belum diset di Vercel!' });
+        if (!process.env.GROQ_API_KEY) {
+            return res.status(500).json({ error: 'API key Groq belum diset di Vercel!' });
         }
 
         const messages = [
@@ -82,9 +82,9 @@ app.post('/api/chat', async (req, res) => {
         ];
 
         const response = await axios.post(
-            'https://api.deepseek.com/chat/completions',
+            'https://api.groq.com/openai/v1/chat/completions',
             {
-                model: 'deepseek-chat',
+                model: 'llama-3.3-70b-versatile',
                 messages: messages,
                 temperature: 0.7,
                 max_tokens: 2000
@@ -92,7 +92,7 @@ app.post('/api/chat', async (req, res) => {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+                    'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
                 },
                 timeout: 30000
             }
@@ -106,7 +106,7 @@ app.post('/api/chat', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('DeepSeek error:', error.response?.data || error.message);
+        console.error('Groq error:', error.response?.data || error.message);
         res.status(500).json({ error: 'Gagal konek ke AI. Coba lagi!' });
     }
 });
@@ -116,7 +116,7 @@ module.exports = app;
 
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log(`\nZEROZX TIKTOK + AI\n`);
+        console.log(`\nZEROZX TIKTOK + AI (Groq)\n`);
         console.log(`Server jalan di: http://localhost:${PORT}\n`);
     });
 }
