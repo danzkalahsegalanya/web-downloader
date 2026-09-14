@@ -670,10 +670,4 @@
             result.classList.remove('show');
             error.classList.remove('show');
             loading.classList.add('show');
-            btn.disabled = true;
-
-            try {
-                const response = await fetch('/api/tiktok', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify
+            btn.dis
