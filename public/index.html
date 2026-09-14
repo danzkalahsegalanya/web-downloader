@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerozx Video Downloader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0f1e 0%, #000 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #00ff88;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid #00ff88;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+            text-shadow: 0 0 15px #00ff88;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #888;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: #00ff8822;
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 10px #00ff8844;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: #00ff8822;
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background: #00ff88;
+            color: #000;
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .video-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .video-thumb {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .video-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .video-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #00ff8822;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            color: #00ff88;
+            text-align: center;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #ffaa00;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .error {
+            background: #ff000022;
+            border: 1px solid #ff4444;
+            color: #ff8888;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #00ff8844;
+            border-top-color: #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 11px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ ZEROZX DOWNLOADER</h1>
+        <div class="subtitle">TikTok & YouTube tanpa watermark</div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('tiktok')">🎵 TikTok</div>
+            <div class="tab" onclick="switchTab('youtube')">▶️ YouTube</div>
+        </div>
+
+        <!-- INPUT -->
+        <div class="input-group">
+            <input type="text" id="urlInput" placeholder="Paste link TikTok/YouTube di sini...">
+            <button onclick="download()" id="downloadBtn">Download</button>
+        </div>
+
+        <!-- LOADING -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px;">Ngambil video... sabar cuy</p>
+        </div>
+
+        <!-- ERROR -->
+        <div class="error" id="error"></div>
+
+        <!-- RESULT -->
+        <div class="result" id="result"></div>
+
+        <div class="footer">
+            Zerozx System v2.0 | No watermark | Free
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'tiktok';
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const input = document.getElementById('urlInput');
+            if (tab === 'tiktok') {
+                input.placeholder = 'Paste link TikTok (contoh: https://vt.tiktok.com/xxx)';
+            } else {
+                input.placeholder = 'Paste link YouTube (contoh: https://youtube.com/watch?v=xxx)';
+            }
+
+            // Clear result
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('error').classList.remove('show');
+        }
+
+        async function download() {
+            const url = document.getElementById('urlInput').value.trim();
+            const btn = document.getElementById('downloadBtn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const error = document.getElementById('error');
+
+            if (!url) {
+                showError('Masukin link dulu cuy!');
+                return;
+            }
+
+            // Reset
+            result.classList.remove('show');
+            error.classList.remove('show');
+            loading.classList.add('show');
+            btn.disabled = true;
+            btn.textContent = 'Loading...';
+
+            try {
+                const endpoint = currentTab === 'tiktok' ? '/api/tiktok' : '/api/youtube';
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.error || 'Gagal download');
+                }
+
+                renderResult(data);
+
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                loading.classList.remove('show');
+                btn.disabled = false;
+                btn.textContent = 'Download';
+            }
+        }
+
+        function renderResult(data) {
+            const result = document.getElementById('result');
+            let html = '';
+
+            if (data.platform === 'tiktok') {
+                html = `
+                    <div class="video-card">
+                        <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
+                        <div class="video-title">${data.title}</div>
+                        <div class="video-meta">
+                            👤 ${data.author} | ⏱️ ${data.duration}s
+                        </div>
+                        <a href="/api/proxy?url=${encodeURIComponent(data.video_no_watermark)}&filename=tiktok_no_wm.mp4" class="download-btn" download>
+                            📥 Download Tanpa Watermark
+                        </a>
+                        ${data.video_hd ? `
+                        <a href="/api/proxy?url=${encodeURIComponent(data.video_hd)}&filename=tiktok_hd.mp4" class="download-btn" download>
+                            🎬 Download HD
+                        </a>` : ''}
+                        ${data.music ? `
+                        <a href="/api/proxy?url=${encodeURIComponent(data.music)}&filename=tiktok_music.mp3" class="download-btn" download>
+                            🎵 Download Audio
+                        </a>` : ''}
+                    </div>
+                `;
+            } else if (data.platform === 'youtube') {
+                html = `
+                    <div class="video-card">
+                        <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
+                        <div class="video-title">${data.title}</div>
+                        <div class="video-meta">
+                            👤 ${data.author} | ⏱️ ${data.duration}s | 👁️ ${data.views} views
+                        </div>
+                        <h4 style="color:#00ff88; margin: 15px 0 10px;">🎬 Video</h4>
+                        ${data.video.map(v => `
+                            <a href="/api/proxy?url=${encodeURIComponent(v.url)}&filename=youtube_${v.quality}.${v.container}" class="download-btn" download>
+                                📥 ${v.quality} (${v.size})
+                            </a>
+                        `).join('')}
+                        <h4 style="color:#00ff88; margin: 15px 0 10px;">🎵 Audio</h4>
+                        ${data.audio.map(a => `
+                            <a href="/api/proxy?url=${encodeURIComponent(a.url)}&filename=youtube_audio.${a.container}" class="download-btn" download>
+                                🎵 ${a.quality}
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            result.innerHTML = html;
+            result.classList.add('show');
+        }
+
+        function showError(msg) {
+            const error = document.getElementById('error');
+            error.textContent = '❌ ' + msg;
+            error.classList.add('show');
+        }
+
+        // Enter buat submit
+        document.getElementById('urlInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') download();
+        });
+    </script>
+</body>
+</html>
