@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zerozx Video Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,173 +14,380 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #ec4899;
+            --accent-dark: #db2777;
+            --bg: #0a0a0f;
+            --card: rgba(20, 20, 30, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: linear-gradient(135deg, #0a0f1e 0%, #000 100%);
-            font-family: 'Courier New', monospace;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            color: #00ff88;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background animasi */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: bgShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgShift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* Grid pattern */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            border: 1px solid #00ff88;
-            border-radius: 20px;
-            padding: 40px;
+            background: var(--card);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 48px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+            max-width: 620px;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.02),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: containerIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes containerIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Border glow */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+            animation: borderGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         h1 {
+            font-size: 32px;
+            font-weight: 800;
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
-            text-shadow: 0 0 15px #00ff88;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #a5b4fc, #f0abfc, #a5b4fc);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
         .subtitle {
             text-align: center;
-            color: #888;
-            margin-bottom: 30px;
+            color: var(--text-dim);
+            margin-bottom: 32px;
             font-size: 14px;
+            font-weight: 400;
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
         }
 
         .tab {
             flex: 1;
             padding: 12px;
-            background: #111;
-            border: 1px solid #333;
+            background: transparent;
+            border: none;
             border-radius: 10px;
-            color: #888;
+            color: var(--text-dim);
             cursor: pointer;
             text-align: center;
-            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .tab.active {
-            background: #00ff8822;
-            border-color: #00ff88;
-            color: #00ff88;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
         .input-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         input {
             flex: 1;
-            padding: 15px;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: #00ff88;
-            font-family: monospace;
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input::placeholder {
+            color: var(--text-dim);
         }
 
         input:focus {
             outline: none;
-            border-color: #00ff88;
-            box-shadow: 0 0 10px #00ff8844;
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
-        button {
-            padding: 15px 30px;
-            background: #00ff8822;
-            border: 1px solid #00ff88;
-            border-radius: 10px;
-            color: #00ff88;
-            font-family: monospace;
+        button#downloadBtn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
         }
 
-        button:hover {
-            background: #00ff88;
-            color: #000;
-            box-shadow: 0 0 20px #00ff88;
+        button#downloadBtn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        button:disabled {
-            opacity: 0.5;
+        button#downloadBtn:hover::before {
+            left: 100%;
+        }
+
+        button#downloadBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        button#downloadBtn:active {
+            transform: translateY(0);
+        }
+
+        button#downloadBtn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .result {
-            margin-top: 20px;
+            margin-top: 24px;
             display: none;
         }
 
         .result.show {
             display: block;
+            animation: resultIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes resultIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .video-card {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.1);
         }
 
         .video-thumb {
             width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .video-thumb:hover {
+            transform: scale(1.02);
         }
 
         .video-title {
             font-size: 16px;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--text);
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         .video-meta {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 18px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .video-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .download-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
-            padding: 12px;
-            background: #00ff8822;
-            border: 1px solid #00ff88;
-            border-radius: 8px;
-            color: #00ff88;
+            padding: 14px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            color: #a5b4fc;
             text-align: center;
             text-decoration: none;
-            margin-bottom: 8px;
-            font-size: 13px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::after {
+            content: '↓';
+            position: absolute;
+            right: 20px;
+            opacity: 0;
+            transform: translateY(-10px);
             transition: all 0.3s;
+            font-size: 18px;
         }
 
         .download-btn:hover {
-            background: #00ff88;
-            color: #000;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .download-btn:hover::after {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .loading {
             text-align: center;
-            padding: 20px;
-            color: #ffaa00;
+            padding: 30px;
+            color: var(--text-dim);
             display: none;
         }
 
@@ -185,46 +395,116 @@
             display: block;
         }
 
-        .error {
-            background: #ff000022;
-            border: 1px solid #ff4444;
-            color: #ff8888;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .error.show {
-            display: block;
-        }
-
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #00ff8844;
-            border-top-color: #00ff88;
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(99, 102, 241, 0.2);
+            border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 10px;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            font-size: 14px;
+            animation: shake 0.5s;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
         .footer {
             text-align: center;
-            margin-top: 30px;
-            font-size: 11px;
-            color: #444;
+            margin-top: 32px;
+            font-size: 12px;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer .dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            button#downloadBtn {
+                width: 100%;
+            }
+
+            .video-meta {
+                font-size: 12px;
+                gap: 10px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>⚡ ZEROZX DOWNLOADER</h1>
-        <div class="subtitle">TikTok & YouTube tanpa watermark</div>
+        <div class="subtitle">TikTok & YouTube tanpa watermark — Gratis & Cepat</div>
 
         <!-- TABS -->
         <div class="tabs">
@@ -241,7 +521,7 @@
         <!-- LOADING -->
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p style="margin-top: 10px;">Ngambil video... sabar cuy</p>
+            <p>Ngambil video... sabar cuy</p>
         </div>
 
         <!-- ERROR -->
@@ -251,6 +531,7 @@
         <div class="result" id="result"></div>
 
         <div class="footer">
+            <span class="dot"></span>
             Zerozx System v2.0 | No watermark | Free
         </div>
     </div>
@@ -270,7 +551,6 @@
                 input.placeholder = 'Paste link YouTube (contoh: https://youtube.com/watch?v=xxx)';
             }
 
-            // Clear result
             document.getElementById('result').classList.remove('show');
             document.getElementById('error').classList.remove('show');
         }
@@ -287,7 +567,6 @@
                 return;
             }
 
-            // Reset
             result.classList.remove('show');
             error.classList.remove('show');
             loading.classList.add('show');
@@ -296,7 +575,6 @@
 
             try {
                 const endpoint = currentTab === 'tiktok' ? '/api/tiktok' : '/api/youtube';
-
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -304,11 +582,7 @@
                 });
 
                 const data = await response.json();
-
-                if (!data.success) {
-                    throw new Error(data.error || 'Gagal download');
-                }
-
+                if (!data.success) throw new Error(data.error || 'Gagal download');
                 renderResult(data);
 
             } catch (err) {
@@ -330,7 +604,8 @@
                         <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
                         <div class="video-title">${data.title}</div>
                         <div class="video-meta">
-                            👤 ${data.author} | ⏱️ ${data.duration}s
+                            <span>👤 ${data.author}</span>
+                            <span>⏱️ ${data.duration}s</span>
                         </div>
                         <a href="${data.video_no_watermark}" target="_blank" class="download-btn" download>
                             📥 Download Tanpa Watermark
@@ -351,15 +626,17 @@
                         <img src="${data.thumbnail}" class="video-thumb" alt="Thumbnail">
                         <div class="video-title">${data.title}</div>
                         <div class="video-meta">
-                            👤 ${data.author} | ⏱️ ${data.duration}s | 👁️ ${data.views} views
+                            <span>👤 ${data.author}</span>
+                            <span>⏱️ ${data.duration}s</span>
+                            <span>👁️ ${data.views} views</span>
                         </div>
-                        <h4 style="color:#00ff88; margin: 15px 0 10px;">🎬 Video</h4>
+                        <h4 style="color:#a5b4fc; margin: 15px 0 10px; font-size: 14px;">🎬 Video</h4>
                         ${data.video.map(v => `
                             <a href="${v.url}" target="_blank" class="download-btn" download>
                                 📥 ${v.quality} (${v.size})
                             </a>
                         `).join('')}
-                        <h4 style="color:#00ff88; margin: 15px 0 10px;">🎵 Audio</h4>
+                        <h4 style="color:#a5b4fc; margin: 15px 0 10px; font-size: 14px;">🎵 Audio</h4>
                         ${data.audio.map(a => `
                             <a href="${a.url}" target="_blank" class="download-btn" download>
                                 🎵 ${a.quality}
@@ -379,7 +656,6 @@
             error.classList.add('show');
         }
 
-        // Enter buat submit
         document.getElementById('urlInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') download();
         });
