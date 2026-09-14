@@ -90,11 +90,7 @@
             50% { opacity: 0.65; }
         }
 
-        .ai-toggle {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+        .ai-toggle { display: flex; justify-content: center; margin-bottom: 20px; }
 
         .ai-toggle-btn {
             display: flex;
@@ -111,15 +107,9 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-            position: relative;
-            z-index: 10;
         }
 
-        .ai-toggle-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
-        }
-
+        .ai-toggle-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6); }
         .ai-toggle-btn svg { width: 20px; height: 20px; fill: white; }
 
         .logo-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -158,11 +148,27 @@
 
         @keyframes shine { to { background-position: 250% center; } }
 
-        .subtitle {
-            text-align: center;
+        .subtitle { text-align: center; color: var(--text-dim); margin-bottom: 28px; font-size: 14px; }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 12px; border: 1px solid var(--border); }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            border-radius: 9px;
             color: var(--text-dim);
-            margin-bottom: 28px;
-            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-red));
+            color: #fff;
         }
 
         .input-group { display: flex; gap: 10px; margin-bottom: 24px; }
@@ -206,26 +212,15 @@
             box-shadow: 0 4px 20px rgba(254, 44, 85, 0.4);
         }
 
-        button#downloadBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(254, 44, 85, 0.6);
-        }
-
+        button#downloadBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(254, 44, 85, 0.6); }
         button#downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
         button#downloadBtn svg { width: 18px; height: 18px; fill: white; }
 
         .result { margin-top: 24px; display: none; }
         .result.show { display: block; }
 
-        .video-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 22px;
-        }
-
+        .video-card { background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border); border-radius: 20px; padding: 22px; }
         .video-thumb { width: 100%; border-radius: 14px; margin-bottom: 18px; }
-
         .video-title { font-size: 15px; margin-bottom: 10px; font-weight: 700; line-height: 1.5; }
         .video-author { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 13px; color: var(--text-dim); }
         .video-author strong { color: #fff; }
@@ -260,6 +255,119 @@
 
         .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
         .download-btn:hover { transform: translateY(-2px); }
+
+        /* ========== HISTORY ========== */
+        .history-section { display: none; }
+        .history-section.show { display: block; }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .history-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .clear-history-btn {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            color: #fca5a5;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clear-history-btn:hover { background: rgba(239, 68, 68, 0.25); }
+
+        .history-list { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
+
+        .history-list::-webkit-scrollbar { width: 6px; }
+        .history-list::-webkit-scrollbar-thumb { background: rgba(37, 244, 238, 0.3); border-radius: 3px; }
+
+        .history-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+        }
+
+        .history-item:hover {
+            border-color: rgba(37, 244, 238, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .history-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .history-info { flex: 1; overflow: hidden; }
+        .history-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item-meta {
+            font-size: 11px;
+            color: var(--text-dim);
+            display: flex;
+            gap: 8px;
+        }
+
+        .history-delete {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .history-delete:hover { background: rgba(239, 68, 68, 0.25); }
+        .history-delete svg { width: 14px; height: 14px; fill: currentColor; }
+
+        .history-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+
+        .history-empty svg {
+            width: 48px;
+            height: 48px;
+            fill: var(--text-dim);
+            opacity: 0.3;
+            margin-bottom: 12px;
+        }
 
         .loading { text-align: center; padding: 30px; color: var(--text-dim); display: none; }
         .loading.show { display: block; }
@@ -303,11 +411,9 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         .chat-modal {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             z-index: 99999;
             display: none;
             align-items: center;
@@ -318,25 +424,18 @@
         .chat-modal.show { display: flex; }
 
         .chat-window {
-            width: 100%;
-            max-width: 560px;
-            height: 80vh;
-            max-height: 700px;
+            width: 100%; max-width: 560px; height: 80vh; max-height: 700px;
             background: rgba(15, 15, 20, 0.98);
             border: 1px solid var(--border);
             border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
         }
 
         .chat-header {
             padding: 16px 20px;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             background: rgba(0, 0, 0, 0.3);
         }
 
@@ -344,27 +443,15 @@
             width: 38px; height: 38px;
             border-radius: 10px;
             background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .chat-avatar svg { width: 20px; height: 20px; fill: white; }
 
         .chat-info { flex: 1; }
         .chat-name { font-size: 14px; font-weight: 700; color: #fff; }
-        .chat-status {
-            font-size: 11px;
-            color: var(--text-dim);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .chat-status .status-dot {
-            width: 6px; height: 6px; background: #22c55e;
-            border-radius: 50%; box-shadow: 0 0 8px #22c55e;
-        }
+        .chat-status { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 5px; }
+        .chat-status .status-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
 
         .chat-close {
             width: 34px; height: 34px;
@@ -373,111 +460,68 @@
             border: 1px solid var(--border);
             color: var(--text-dim);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .chat-close:hover { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
         .chat-close svg { width: 16px; height: 16px; fill: currentColor; }
 
         .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex: 1; overflow-y: auto; padding: 18px;
+            display: flex; flex-direction: column; gap: 10px;
         }
 
         .chat-messages::-webkit-scrollbar { width: 6px; }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(139, 92, 246, 0.3);
-            border-radius: 3px;
-        }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 3px; }
 
         .message {
-            max-width: 80%;
-            padding: 11px 15px;
-            border-radius: 14px;
-            font-size: 13px;
-            line-height: 1.5;
-            word-wrap: break-word;
-            white-space: pre-wrap;
+            max-width: 80%; padding: 11px 15px;
+            border-radius: 14px; font-size: 13px; line-height: 1.5;
+            word-wrap: break-word; white-space: pre-wrap;
         }
 
         .message.user {
             align-self: flex-end;
             background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
-            color: white;
-            border-bottom-right-radius: 4px;
+            color: white; border-bottom-right-radius: 4px;
         }
 
         .message.ai {
             align-self: flex-start;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
-            color: var(--text);
-            border-bottom-left-radius: 4px;
+            color: var(--text); border-bottom-left-radius: 4px;
         }
 
-        .message.typing {
-            display: flex;
-            gap: 4px;
-            padding: 14px;
-        }
-
-        .message.typing span {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: var(--ai-purple);
-            animation: typing 1.4s infinite;
-        }
-
+        .message.typing { display: flex; gap: 4px; padding: 14px; }
+        .message.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ai-purple); animation: typing 1.4s infinite; }
         .message.typing span:nth-child(2) { animation-delay: 0.2s; }
         .message.typing span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-            30% { transform: translateY(-6px); opacity: 1; }
-        }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-6px); opacity: 1; } }
 
         .chat-input-area {
             padding: 14px 18px;
             border-top: 1px solid var(--border);
-            display: flex;
-            gap: 8px;
+            display: flex; gap: 8px;
             background: rgba(0, 0, 0, 0.3);
         }
 
         .chat-input-area input {
-            flex: 1;
-            padding: 12px 16px;
+            flex: 1; padding: 12px 16px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
             border-radius: 12px;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
         }
 
-        .chat-input-area input:focus {
-            outline: none;
-            border-color: rgba(139, 92, 246, 0.5);
-        }
+        .chat-input-area input:focus { outline: none; border-color: rgba(139, 92, 246, 0.5); }
 
         .chat-send {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             border-radius: 12px;
             background: linear-gradient(135deg, var(--ai-purple), var(--ai-blue));
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
+            border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
@@ -511,29 +555,46 @@
         <h1>ZEROZX TIKTOK</h1>
         <div class="subtitle">Download video TikTok tanpa watermark</div>
 
-        <div class="input-group">
-            <input type="text" id="urlInput" placeholder="Paste link TikTok di sini...">
-            <button type="button" id="downloadBtn">
-                <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
-                Download
-            </button>
+        <div class="tabs">
+            <button type="button" class="tab-btn active" data-tab="download">Download</button>
+            <button type="button" class="tab-btn" data-tab="history">History</button>
         </div>
 
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Ngambil video... sabar cuy</p>
+        <!-- TAB DOWNLOAD -->
+        <div id="downloadTab">
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="Paste link TikTok di sini...">
+                <button type="button" id="downloadBtn">
+                    <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+                    Download
+                </button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Ngambil video... sabar cuy</p>
+            </div>
+
+            <div class="error" id="error">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                <span id="errorText"></span>
+            </div>
+
+            <div class="result" id="result"></div>
         </div>
 
-        <div class="error" id="error">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-            <span id="errorText"></span>
+        <!-- TAB HISTORY -->
+        <div id="historyTab" style="display:none;">
+            <div class="history-header">
+                <div class="history-title">📜 Riwayat Download</div>
+                <button type="button" class="clear-history-btn" id="clearHistoryBtn">Hapus Semua</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
         </div>
-
-        <div class="result" id="result"></div>
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v3.3 | TikTok + AI
+            Zerozx System v3.4 | TikTok + AI + History
         </div>
     </div>
 
@@ -546,7 +607,7 @@
                 <div class="chat-info">
                     <div class="chat-name">Zerozx AI</div>
                     <div class="chat-status">
-                        <span class="status-dot"></span> Online · DeepSeek
+                        <span class="status-dot"></span> Online · Groq
                     </div>
                 </div>
                 <button type="button" class="chat-close" id="chatClose">
@@ -554,7 +615,7 @@
                 </button>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="message ai">Halo cuy! Gw Zerozx AI. Ada yang bisa gw bantu? Tanya apa aja, gw siap jawab!</div>
+                <div class="message ai">Halo cuy! Gw Zerozx AI. Ada yang bisa gw bantu?</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chatInput" placeholder="Ketik pesan...">
@@ -567,8 +628,129 @@
 
     <script>
         var chatHistory = [];
+        var HISTORY_KEY = 'zerozx_history';
 
-        // ========== TIKTOK DOWNLOAD ==========
+        // ========== TAB SWITCHING ==========
+        document.querySelectorAll('.tab-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+
+                var tab = this.getAttribute('data-tab');
+                if (tab === 'download') {
+                    document.getElementById('downloadTab').style.display = 'block';
+                    document.getElementById('historyTab').style.display = 'none';
+                } else {
+                    document.getElementById('downloadTab').style.display = 'none';
+                    document.getElementById('historyTab').style.display = 'block';
+                    renderHistory();
+                }
+            });
+        });
+
+        // ========== HISTORY FUNCTIONS ==========
+        function getHistory() {
+            try {
+                return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveHistory(history) {
+            try {
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            } catch (e) {
+                console.error('Gagal simpen history:', e);
+            }
+        }
+
+        function addToHistory(data) {
+            var history = getHistory();
+            history.unshift({
+                id: Date.now(),
+                title: data.title,
+                author: data.author,
+                thumbnail: data.thumbnail,
+                video_no_watermark: data.video_no_watermark,
+                video_hd: data.video_hd,
+                music: data.music,
+                duration: data.duration,
+                date: new Date().toLocaleString('id-ID')
+            });
+            if (history.length > 50) history = history.slice(0, 50);
+            saveHistory(history);
+        }
+
+        function removeFromHistory(id) {
+            var history = getHistory();
+            history = history.filter(function(item) { return item.id !== id; });
+            saveHistory(history);
+            renderHistory();
+        }
+
+        function clearHistory() {
+            if (confirm('Yakin mau hapus semua history?')) {
+                localStorage.removeItem(HISTORY_KEY);
+                renderHistory();
+            }
+        }
+
+        function renderHistory() {
+            var list = document.getElementById('historyList');
+            var history = getHistory();
+
+            if (history.length === 0) {
+                list.innerHTML =
+                    '<div class="history-empty">' +
+                        '<svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>' +
+                        '<div>Belum ada riwayat download</div>' +
+                    '</div>';
+                return;
+            }
+
+            var html = '';
+            history.forEach(function(item) {
+                html +=
+                    '<div class="history-item" data-url="' + item.video_no_watermark + '">' +
+                        '<img src="' + item.thumbnail + '" class="history-thumb" alt="thumb">' +
+                        '<div class="history-info">' +
+                            '<div class="history-item-title">' + escapeHtml(item.title) + '</div>' +
+                            '<div class="history-item-meta">' +
+                                '<span>@' + escapeHtml(item.author) + '</span>' +
+                                '<span>·</span>' +
+                                '<span>' + item.date + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<button type="button" class="history-delete" data-id="' + item.id + '">' +
+                            '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>' +
+                        '</button>' +
+                    '</div>';
+            });
+            list.innerHTML = html;
+
+            // Klik item history → isi ulang URL
+            list.querySelectorAll('.history-item').forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    if (e.target.closest('.history-delete')) return;
+                    var url = this.getAttribute('data-url');
+                    document.getElementById('urlInput').value = url;
+                    document.querySelector('.tab-btn[data-tab="download"]').click();
+                    document.getElementById('urlInput').focus();
+                });
+            });
+
+            // Tombol hapus per item
+            list.querySelectorAll('.history-delete').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var id = parseInt(this.getAttribute('data-id'));
+                    removeFromHistory(id);
+                });
+            });
+        }
+
+        // ========== DOWNLOAD ==========
         document.getElementById('downloadBtn').addEventListener('click', async function() {
             var url = document.getElementById('urlInput').value.trim();
             var btn = document.getElementById('downloadBtn');
@@ -597,6 +779,7 @@
 
                 if (!data.success) throw new Error(data.error || 'Gagal download');
                 renderResult(data);
+                addToHistory(data);
             } catch (err) {
                 document.getElementById('errorText').textContent = err.message;
                 error.classList.add('show');
@@ -606,7 +789,6 @@
             }
         });
 
-        // Enter buat submit
         document.getElementById('urlInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') document.getElementById('downloadBtn').click();
         });
@@ -642,6 +824,14 @@
             if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
             return n.toString();
         }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
 
         // ========== AI CHAT ==========
         document.getElementById('aiBtn').addEventListener('click', function() {
@@ -689,10 +879,7 @@
                 var response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: message,
-                        history: chatHistory
-                    })
+                    body: JSON.stringify({ message: message, history: chatHistory })
                 });
 
                 var data = await response.json();
@@ -710,7 +897,6 @@
                 if (chatHistory.length > 20) {
                     chatHistory = chatHistory.slice(-20);
                 }
-
             } catch (err) {
                 var typingEl2 = document.getElementById(typingId);
                 if (typingEl2) typingEl2.remove();
@@ -721,12 +907,6 @@
                 sendBtn.disabled = false;
                 input.focus();
             }
-        }
-
-        function escapeHtml(text) {
-            var div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
     </script>
 </body>
