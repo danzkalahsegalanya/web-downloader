@@ -61,12 +61,62 @@ app.post('/api/tiktok', async (req, res) => {
     }
 });
 
+// ========== DEEPSEEK AI CHAT ==========
+app.post('/api/chat', async (req, res) => {
+    try {
+        const { message, history } = req.body;
+
+        if (!message) return res.status(400).json({ error: 'Pesan wajib diisi!' });
+
+        if (!process.env.DEEPSEEK_API_KEY) {
+            return res.status(500).json({ error: 'API key DeepSeek belum diset di Vercel!' });
+        }
+
+        const messages = [
+            {
+                role: 'system',
+                content: 'Kamu adalah Zerozx AI, asisten yang ramah, pintar, dan suka membantu. Jawab dengan bahasa Indonesia gaul yang santai dan jelas.'
+            },
+            ...(history || []),
+            { role: 'user', content: message }
+        ];
+
+        const response = await axios.post(
+            'https://api.deepseek.com/chat/completions',
+            {
+                model: 'deepseek-chat',
+                messages: messages,
+                temperature: 0.7,
+                max_tokens: 2000
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+                },
+                timeout: 30000
+            }
+        );
+
+        const reply = response.data.choices[0].message.content;
+
+        res.json({
+            success: true,
+            reply: reply
+        });
+
+    } catch (error) {
+        console.error('DeepSeek error:', error.response?.data || error.message);
+        res.status(500).json({ error: 'Gagal konek ke AI. Coba lagi!' });
+    }
+});
+
 // ========== VERCEL EXPORT ==========
 module.exports = app;
 
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log(`\nZEROZX TIKTOK DOWNLOADER\n`);
+        console.log(`\nZEROZX TIKTOK + AI\n`);
         console.log(`Server jalan di: http://localhost:${PORT}\n`);
     });
 }
