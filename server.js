@@ -10,7 +10,6 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ========== HELPER ==========
 const fixTikwmUrl = (u) => {
     if (!u) return null;
     return u.startsWith('http') ? u : `https://www.tikwm.com${u}`;
@@ -119,39 +118,6 @@ app.post('/api/twitter', async (req, res) => {
     } catch (error) {
         console.error('Twitter error:', error.message);
         res.status(500).json({ error: 'Gagal download Twitter/X. Coba lagi!' });
-    }
-});
-
-// ========== TRENDING TIKTOK ==========
-app.get('/api/trending', async (req, res) => {
-    try {
-        const response = await axios.get('https://www.tikwm.com/api/feed/list', {
-            params: { region: 'ID', count: 12 },
-            timeout: 10000,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            }
-        });
-
-        if (response.data.code === 0 && response.data.data && response.data.data.length > 0) {
-            const videos = response.data.data.map(v => ({
-                id: v.video_id,
-                title: v.title || 'No title',
-                author: v.author?.unique_id || 'unknown',
-                thumbnail: fixTikwmUrl(v.cover),
-                video_url: fixTikwmUrl(v.play),
-                stats: {
-                    plays: v.play_count || 0,
-                    likes: v.digg_count || 0
-                }
-            }));
-            return res.json({ success: true, videos });
-        }
-
-        res.json({ success: true, videos: [], message: 'Trending sementara gak tersedia' });
-    } catch (error) {
-        console.error('Trending error:', error.message);
-        res.json({ success: true, videos: [], message: 'Trending sementara gak tersedia' });
     }
 });
 
