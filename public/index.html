@@ -90,7 +90,6 @@
             50% { opacity: 0.65; }
         }
 
-        /* ========== BURGER MENU BUTTON ========== */
         .burger-btn {
             position: absolute;
             top: 20px;
@@ -124,11 +123,8 @@
             transition: all 0.3s;
         }
 
-        .burger-btn:hover span {
-            background: var(--tiktok-cyan);
-        }
+        .burger-btn:hover span { background: var(--tiktok-cyan); }
 
-        /* ========== SIDE MENU ========== */
         .side-menu {
             position: fixed;
             top: 0;
@@ -179,11 +175,7 @@
             transition: all 0.3s;
         }
 
-        .side-close:hover {
-            background: rgba(239, 68, 68, 0.15);
-            color: #fca5a5;
-        }
-
+        .side-close:hover { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
         .side-close svg { width: 16px; height: 16px; fill: currentColor; }
 
         .menu-item {
@@ -211,13 +203,7 @@
             transform: translateX(5px);
         }
 
-        .menu-item svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--tiktok-cyan);
-            flex-shrink: 0;
-        }
-
+        .menu-item svg { width: 20px; height: 20px; fill: var(--tiktok-cyan); flex-shrink: 0; }
         .menu-item.ai svg { fill: var(--ai-purple); }
         .menu-item.ai:hover { background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.3); }
 
@@ -232,12 +218,9 @@
             transition: opacity 0.3s;
         }
 
-        .menu-overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .menu-overlay.show { opacity: 1; pointer-events: auto; }
 
-        /* ========== HISTORY PANEL ========== */
+        /* HISTORY PANEL */
         .history-panel {
             position: fixed;
             top: 0;
@@ -267,6 +250,14 @@
             border-bottom: 1px solid var(--border);
         }
 
+        .panel-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title-wrap svg { width: 22px; height: 22px; fill: var(--tiktok-cyan); }
+
         .panel-title {
             font-size: 18px;
             font-weight: 800;
@@ -276,6 +267,7 @@
         .panel-actions {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
 
         .clear-history-btn {
@@ -292,6 +284,23 @@
         }
 
         .clear-history-btn:hover { background: rgba(239, 68, 68, 0.25); }
+
+        .panel-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .panel-close:hover { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+        .panel-close svg { width: 16px; height: 16px; fill: currentColor; }
 
         .history-list { display: flex; flex-direction: column; gap: 10px; }
 
@@ -532,7 +541,6 @@
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ========== CHAT MODAL ========== */
         .chat-modal {
             position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.85);
@@ -662,7 +670,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- BURGER BUTTON -->
         <button type="button" class="burger-btn" id="burgerBtn">
             <span></span>
             <span></span>
@@ -700,11 +707,10 @@
 
         <div class="footer">
             <span class="dot"></span>
-            Zerozx System v4.0 | TikTok + AI + History
+            Zerozx System v4.1 | TikTok + AI + History
         </div>
     </div>
 
-    <!-- SIDE MENU -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="side-menu" id="sideMenu">
         <div class="side-menu-header">
@@ -723,18 +729,22 @@
         </button>
     </div>
 
-    <!-- HISTORY PANEL -->
     <div class="history-panel" id="historyPanel">
         <div class="panel-header">
-            <div class="panel-title">📜 Riwayat Download</div>
+            <div class="panel-title-wrap">
+                <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+                <div class="panel-title">Riwayat Download</div>
+            </div>
             <div class="panel-actions">
                 <button type="button" class="clear-history-btn" id="clearHistoryBtn">Hapus Semua</button>
+                <button type="button" class="panel-close" id="historyClose">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
             </div>
         </div>
         <div class="history-list" id="historyList"></div>
     </div>
 
-    <!-- CHAT MODAL -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-window">
             <div class="chat-header">
@@ -781,7 +791,6 @@
             document.getElementById('menuOverlay').classList.remove('show');
         }
 
-        // ========== MENU ACTIONS ==========
         document.getElementById('menuHistory').addEventListener('click', function() {
             closeMenu();
             document.getElementById('historyPanel').classList.add('open');
@@ -796,19 +805,19 @@
             }, 300);
         });
 
+        // ========== HISTORY CLOSE ==========
+        document.getElementById('historyClose').addEventListener('click', function() {
+            document.getElementById('historyPanel').classList.remove('open');
+        });
+
         // ========== HISTORY ==========
         function getHistory() {
-            try {
-                return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-            } catch (e) {
-                return [];
-            }
+            try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+            catch (e) { return []; }
         }
 
         function saveHistory(history) {
-            try {
-                localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-            } catch (e) {}
+            try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch (e) {}
         }
 
         function addToHistory(data) {
@@ -843,12 +852,11 @@
             var list = document.getElementById('historyList');
             var history = getHistory();
 
+            var iconEmpty = '<svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>';
+            var iconTrash = '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
+
             if (history.length === 0) {
-                list.innerHTML =
-                    '<div class="history-empty">' +
-                        '<svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>' +
-                        '<div>Belum ada riwayat download</div>' +
-                    '</div>';
+                list.innerHTML = '<div class="history-empty">' + iconEmpty + '<div>Belum ada riwayat download</div></div>';
                 return;
             }
 
@@ -865,9 +873,7 @@
                                 '<span>' + item.date + '</span>' +
                             '</div>' +
                         '</div>' +
-                        '<button type="button" class="history-delete" data-id="' + item.id + '">' +
-                            '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>' +
-                        '</button>' +
+                        '<button type="button" class="history-delete" data-id="' + item.id + '">' + iconTrash + '</button>' +
                     '</div>';
             });
             list.innerHTML = html;
@@ -948,7 +954,7 @@
                 '<div class="video-card">' +
                     '<img src="' + data.thumbnail + '" class="video-thumb" alt="Thumbnail">' +
                     '<div class="video-title">' + data.title + '</div>' +
-                    '<div class="video-author">👤 <strong>@' + data.author + '</strong></div>' +
+                    '<div class="video-author">' + iconEye + ' <strong>@' + data.author + '</strong></div>' +
                     '<div class="video-meta">' +
                         '<div class="meta-item">' + iconEye + ' ' + formatNumber(data.stats.plays) + '</div>' +
                         '<div class="meta-item likes">' + iconHeart + ' ' + formatNumber(data.stats.likes) + '</div>' +
